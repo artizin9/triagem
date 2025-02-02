@@ -1,0 +1,19 @@
+/* Custom scrollbar */
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #FFF4A3 #3F3D3D; /* Cor do thumb e do track */
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background-color: #3F3D3D; /* Cor do fundo do track */
+  border-radius: 999px; /* Bordas completamente arredondadas */
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #FFF4A3; /* Cor do thumb */
+  border-radius: 999px; /* Bordas completamente arredondadas */
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: #e1d8a5; /* Cor do thumb ao passar o mouse */
+}
