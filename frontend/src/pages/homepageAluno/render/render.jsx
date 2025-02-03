@@ -5,13 +5,14 @@ import { HomeAluno } from '../components/HomeAluno'
 const buttons = [
     {
         id: 1,
-        name: 'Alunos',
-        img: (<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor"><path d="M480-480q-66 0-113-47t-47-113q0-66 47-113t113-47q66 0 113 47t47 113q0 66-47 113t-113 47ZM160-160v-112q0-34 17.5-62.5T224-378q62-31 126-46.5T480-440q66 0 130 15.5T736-378q29 15 46.5 43.5T800-272v112H160Zm80-80h480v-32q0-11-5.5-20T700-306q-54-27-109-40.5T480-360q-56 0-111 13.5T260-306q-9 5-14.5 14t-5.5 20v32Zm240-320q33 0 56.5-23.5T560-640q0-33-23.5-56.5T480-720q-33 0-56.5 23.5T400-640q0 33 23.5 56.5T480-560Zm0-80Zm0 400Z" /></svg>)
+        name: 'Treinos',
+        img: (<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor"><path d="m826-585-56-56 30-31-128-128-31 30-57-57 30-31q23-23 57-22.5t57 23.5l129 129q23 23 23 56.5T857-615l-31 30ZM346-104q-23 23-56.5 23T233-104L104-233q-23-23-23-56.5t23-56.5l30-30 57 57-31 30 129 129 30-31 57 57-30 30Zm397-336 57-57-303-303-57 57 303 303ZM463-160l57-58-302-302-58 57 303 303Zm-6-234 110-109-64-64-109 110 63 63Zm63 290q-23 23-57 23t-57-23L104-406q-23-23-23-57t23-57l57-57q23-23 56.5-23t56.5 23l63 63 110-110-63-62q-23-23-23-57t23-57l57-57q23-23 56.5-23t56.5 23l303 303q23 23 23 56.5T857-441l-57 57q-23 23-57 23t-57-23l-62-63-110 110 63 63q23 23 23 56.5T577-161l-57 57Z" /></svg>)
     },
+
     {
         id: 2,
-        name: 'Configuração',
-        img: (<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor"><path d="m370-80-16-128q-13-5-24.5-12T307-235l-119 50L78-375l103-78q-1-7-1-13.5v-27q0-6.5 1-13.5L78-585l110-190 119 50q11-8 23-15t24-12l16-128h220l16 128q13 5 24.5 12t22.5 15l119-50 110 190-103 78q1 7 1 13.5v27q0 6.5-2 13.5l103 78-110 190-118-50q-11 8-23 15t-24 12L590-80H370Zm70-80h79l14-106q31-8 57.5-23.5T639-327l99 41 39-68-86-65q5-14 7-29.5t2-31.5q0-16-2-31.5t-7-29.5l86-65-39-68-99 42q-22-23-48.5-38.5T533-694l-13-106h-79l-14 106q-31 8-57.5 23.5T321-633l-99-41-39 68 86 64q-5 15-7 30t-2 32q0 16 2 31t7 30l-86 65 39 68 99-42q22 23 48.5 38.5T427-266l13 106Zm42-180q58 0 99-41t41-99q0-58-41-99t-99-41q-59 0-99.5 41T342-480q0 58 40.5 99t99.5 41Zm-2-140Z" /></svg>)
+        name: 'Sair',
+        img: (<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor"><path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h280v80H200v560h280v80H200Zm440-160-55-58 102-102H360v-80h327L585-622l55-58 200 200-200 200Z" /></svg>)
     }
 ]
 
@@ -44,8 +45,6 @@ export function Render({ imagem, nome }) {
         switch (id) {
             case 1:
                 return <HomeAluno />
-            case 2:
-                return 2
         }
     }
 
@@ -74,9 +73,9 @@ export function Render({ imagem, nome }) {
                         {buttons.map((item, index) => (
                             <button
                                 key={index}
-                                className={` ${item.id === id ? 'bg-[#464545] w-[95%] text-[#FFF4A3] border-r-4 border-[#FFF4A3] font-aleo flex items-center justify-center p-2 scale-105 duration-300 ' : 'bg-[#252424] flex items-center justify-center p-2 font-aleo w-full text-white'}`}
+                                className={` ${item.id === id ? 'bg-[#464545] w-[95%] text-[#FFF4A3] border-r-4 border-[#FFF4A3] font-aleo flex items-center justify-center p-2 scale-105 duration-300 ' : 'bg-[#252424] flex items-center justify-center p-2 font-aleo w-full text-white'} ${item.id === 2 ? "md:hidden" : ""}`}
                                 onClick={() => { setId(item.id) }}>
-                                <div className={`flex items-center justify-center ${item.id === 2 ? 'ml-10' : ''}`}>
+                                <div className={`flex items-center justify-center ${item.id === 2 ? 'md:hidden' : ''}`}>
                                     {item.img}
                                     <h1 className='ml-2 mt-1 '> {item.name} </h1>
                                 </div>
@@ -89,7 +88,6 @@ export function Render({ imagem, nome }) {
                         <div className={`${logOut ? 'w-[80%] rounded-lg flex flex-col font-poltawski font-bold p-1 bg-[#464545] items-center py-3 px-1 text-white absolute -translate-y-28 ' : 'hidden'}`}>
                             Você deseja sair?
                             <button className='w-[80%] mt-2 bg-[#FFF4A3] text-[#252424] hover:bg-red-500 duration-300 hover:text-white rounded-md'> Sair </button>
-                            <polygon></polygon>
                         </div>
                         <button className='bg-[#252424] flex items-center justify-center p-2 font-aleo w-full text-white hover:bg-[#464545] hover:text-[#FFF4A3] hover:border-r-4 hover:border-[#FFF4A3]  duration-300' onClick={VisibleLogOut}>
 
@@ -111,7 +109,7 @@ export function Render({ imagem, nome }) {
                     </div>
                 </div>
 
-                <div className='w-[85%] bg-[#3F3D3D] h-full flex  justify-center text-black  max-md:hidden'>
+                <div className='w-[85%] bg-[#3F3D3D] h-full flex  justify-center text-black relative  max-md:hidden'>
                     {renderContent()}
                 </div>
 
@@ -120,8 +118,30 @@ export function Render({ imagem, nome }) {
 
             <div className='w-dvw h-dvh flex justify-center flex-col items-center md:hidden'>
 
-                <div className='w-full bg-[#3F3D3D] h-full flex justify-center text-black'>
+                <div className='w-full bg-[#3F3D3D] h-full flex justify-center text-black relative'>
                     {renderContent()}
+
+                    <div
+                        onClick={() => setLogOut(false)}
+                        className={`md:hidden w-full h-full rounded-lg flex justify-center flex-col font-poltawski font-bold p-1 bg-[#464545] items-center py-3 px-1 text-white absolute bg-black/20  ${logOut ? 'visible' : 'invisible'}`}>
+
+                        <div
+                            onClick={(e) => e.stopPropagation()}
+                            className={`duration-500 w-[80%] rounded-lg flex flex-col font-poltawski font-bold bg-white items-center py-5 px-1 text-[#252424] shadow-black shadow-lg ${logOut ? 'opacity-100 scale-100 ' : 'opacity-0 scale-125'}`}>
+                            <svg xmlns="http://www.w3.org/2000/svg" height="100px" viewBox="0 -960 960 960" width="100px" fill="currentColor"><path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h280v80H200v560h280v80H200Zm440-160-55-58 102-102H360v-80h327L585-622l55-58 200 200-200 200Z" /></svg>
+                            <h1 className='font-poltawski font-bold text-xl'>Você deseja sair?</h1>
+                            <h3 className='font-aleo font-light text-sm'>Ao sair, você terá que fazer login</h3>
+
+                            <button className='w-[60%] mt-2 translate-y-2 text-white bg-red-500 duration-300 rounded-md py-1'> Sair da conta </button>
+
+                            <button onClick={() => setLogOut(false)} className="absolute left-0 top-1 text-[#25242] active:text-red-600  duration-500">
+                                <svg width="31" height="33" viewBox="0 0 31 37" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M9.82749 22.9235L8.42749 21.5235L14.0275 15.9235L8.42749 10.3235L9.82749 8.92346L15.4275 14.5235L21.0275 8.92346L22.4275 10.3235L16.8275 15.9235L22.4275 21.5235L21.0275 22.9235L15.4275 17.3235L9.82749 22.9235Z" fill="currentColor" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+
                 </div>
 
                 <div className='h-fit w-full bg-[#252424] p-2 relative z-10'>
@@ -130,7 +150,7 @@ export function Render({ imagem, nome }) {
                             <button
                                 key={item.id}
                                 className={`${item.id === id ? "scale-115 shadow-lg shadow-[#fff4a3] text-[#fff4a3] flex p-1 items-center justify-center h-12 aspect-square rounded-full bg-[#3f3f3f] ease-in-out transition-all duration-500 -translate-y-2 border border-[#fff4a3]" : "flex p-1 items-center justify-center h-12 aspect-square rounded-full bg-[#3f3f3f] shadow-lg shadow-black text-white duration-500 border border-[#3f3f3f]"}`}
-                                onClick={() => setId(item.id)}>
+                                onClick={() => { item.id === 2 ? VisibleLogOut() : setId(item.id) }}>
                                 {item.img}
                             </button>
                         ))}

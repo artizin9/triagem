@@ -14,7 +14,7 @@ const options = [
     { id: 8, value: 'Sexo'}
 ]
 
-export function Treino({alunos, setAlunos, selectedAluno, setSelectedAluno}){
+export function Treino({alunos, setAlunos, selectedAluno, setSelectedAluno, treinos, setTreinos}){
     
     const [arrow, setArrow] = useState(false)
     const [search, setSearch] = useState('')
@@ -22,9 +22,6 @@ export function Treino({alunos, setAlunos, selectedAluno, setSelectedAluno}){
     const [modalTreino, setModalTreino] = useState(false)
     const [modalDicas, setModalDicas] = useState(false)
     const [foto, setFoto] = useState(null)
-    const [treinos, setTreinos] = useState([])
-
-    console.log('treinos', treinos)
 
     // Isso funciona da mesma forma que o form do alunos, cria o form, envia pra array treinos
     const [form, setForm] = useState({

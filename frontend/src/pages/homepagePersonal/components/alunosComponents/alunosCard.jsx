@@ -1,7 +1,7 @@
 import { useEffect } from "react" 
 import userNull from '../../../../assets/imgs/usernull.svg'
 
-export function CardAluno({Aluno, Edit, Remove, Tipo, onOpenTreino, onOpenDicas,}){
+export function CardAluno({Aluno, Edit, Remove, Tipo, onOpenTreino, onOpenDicas, onOpenTreinoFinalizado}){
 
     const ButtonsTreino = [
         {
@@ -49,8 +49,12 @@ export function CardAluno({Aluno, Edit, Remove, Tipo, onOpenTreino, onOpenDicas,
                     <svg width="18" height="18" viewBox="0 0 18 18" className="max-md:w-4 max-md:h-4" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                         <path d="M2 16H3.425L13.2 6.225L11.775 4.8L2 14.575V16ZM0 18V13.75L13.2 0.575C13.4 0.391667 13.6208 0.25 13.8625 0.15C14.1042 0.05 14.3583 0 14.625 0C14.8917 0 15.15 0.05 15.4 0.15C15.65 0.25 15.8667 0.4 16.05 0.6L17.425 2C17.625 2.18333 17.7708 2.4 17.8625 2.65C17.9542 2.9 18 3.15 18 3.4C18 3.66667 17.9542 3.92083 17.8625 4.1625C17.7708 4.40417 17.625 4.625 17.425 4.825L4.25 18H0ZM12.475 5.525L11.775 4.8L13.2 6.225L12.475 5.525Z" fill="#currentColor"/>
                     </svg>
-                </button>) : (
-                    <div className="w-full flex p-1 flex-nowrap justify-evenly items-center max-md:space-x-1  max-md:justify-between ">
+                </button>) : Tipo === 'info' ? (
+                <button 
+                onClick={onOpenTreinoFinalizado}
+                className="w-1/2 bg-white font-poltawski flex justify-evenly items-center rounded-md py-0.5 md:py-1 shadow-md shadow-black text-[#252424] duration-500 font-bold hover:bg-[#3F3D3D] hover:text-[#fff4a3] space-x-2 px-1 text-[17px] max-md:w-2/3"> 
+                    <h1> Treinos finalizados </h1>
+                </button>) : (<div className="w-full flex p-1 flex-nowrap justify-evenly items-center max-md:space-x-1  max-md:justify-between ">
                     {
                     ButtonsTreino.map((item) => (<button 
                     key = {item.id}
@@ -60,11 +64,10 @@ export function CardAluno({Aluno, Edit, Remove, Tipo, onOpenTreino, onOpenDicas,
                         <div className={`${item.id === 2 ? 'translate-x-1 max-md:translate-y-0.5 translate-y-1 ' : 'max-md:translate-x-0.5' }`}>{item.img}</div>
                     </button>)
                     )} 
-                    </div>
-                )}
+                    </div>) }
                
             </div>
-            <button onClick={Remove} className="absolute top-2 right-1 max-md:top-0 max-md:right-0  text-white hover:text-red-500 duration-500">
+            <button onClick={Remove} className={`absolute top-2 right-1 max-md:top-0 max-md:right-0  text-white hover:text-red-500 duration-500 ${Tipo === "info" ? "hidden" : ""}`}>
                 <svg width="31" height="37" viewBox="0 0 31 37" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                     <path d="M9.82749 22.9235L8.42749 21.5235L14.0275 15.9235L8.42749 10.3235L9.82749 8.92346L15.4275 14.5235L21.0275 8.92346L22.4275 10.3235L16.8275 15.9235L22.4275 21.5235L21.0275 22.9235L15.4275 17.3235L9.82749 22.9235Z" fill="currentColor"/>
                 </svg>

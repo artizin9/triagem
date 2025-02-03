@@ -3,6 +3,7 @@ import userNull from '../../../assets/imgs/usernull.svg'
 import { Alunos } from '../components/alunos'
 import { Treino } from '../components/treino'
 import { useState } from 'react'
+import { Informations } from '../components/informations'
 
 const buttons = [
     {
@@ -19,8 +20,14 @@ const buttons = [
 
     {
         id: 3,
-        name: 'Configuração',
+        name: 'Informações',
         img: ( <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor"><path d="m370-80-16-128q-13-5-24.5-12T307-235l-119 50L78-375l103-78q-1-7-1-13.5v-27q0-6.5 1-13.5L78-585l110-190 119 50q11-8 23-15t24-12l16-128h220l16 128q13 5 24.5 12t22.5 15l119-50 110 190-103 78q1 7 1 13.5v27q0 6.5-2 13.5l103 78-110 190-118-50q-11 8-23 15t-24 12L590-80H370Zm70-80h79l14-106q31-8 57.5-23.5T639-327l99 41 39-68-86-65q5-14 7-29.5t2-31.5q0-16-2-31.5t-7-29.5l86-65-39-68-99 42q-22-23-48.5-38.5T533-694l-13-106h-79l-14 106q-31 8-57.5 23.5T321-633l-99-41-39 68 86 64q-5 15-7 30t-2 32q0 16 2 31t7 30l-86 65 39 68 99-42q22 23 48.5 38.5T427-266l13 106Zm42-180q58 0 99-41t41-99q0-58-41-99t-99-41q-59 0-99.5 41T342-480q0 58 40.5 99t99.5 41Zm-2-140Z"/></svg> )
+    },
+
+    {
+        id: 4,
+        name: 'Sair',
+        img: (<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor"><path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h280v80H200v560h280v80H200Zm440-160-55-58 102-102H360v-80h327L585-622l55-58 200 200-200 200Z" /></svg>)
     }
 ]
 
@@ -46,6 +53,7 @@ export function Render({imagem, nome}){
     const [id, setId] = useState(1)
     const [logOut, setLogOut] = useState(false)
     const [alunos, setAlunos] = useState([])
+    const [treinos, setTreinos] = useState([])
     const [selectedAluno, setSelectedAluno] = useState(null)
     // Temos a array Alunos e selectAluno passando como props, para eu poder reutilizar esses valores em outras telas
     const VisibleLogOut = () => {
@@ -57,9 +65,9 @@ export function Render({imagem, nome}){
             case 1:
                 return <Alunos alunos={alunos} setAlunos={setAlunos} selectedAluno={selectedAluno} setSelectedAluno={setSelectedAluno}/>
             case 2:
-                return <Treino alunos={alunos} setAlunos={setAlunos} selectedAluno={selectedAluno} setSelectedAluno={setSelectedAluno}/>
+                return <Treino alunos={alunos} setAlunos={setAlunos} selectedAluno={selectedAluno} setSelectedAluno={setSelectedAluno} treinos={treinos} setTreinos={setTreinos}/>
             case 3:
-                return 8    
+                return <Informations alunos={alunos} treinos={treinos}/>  
         }
     }
 
@@ -93,9 +101,9 @@ export function Render({imagem, nome}){
                     { buttons.map((item, index) => (
                             <button 
                             key = {index}
-                            className={` ${item.id === id ? 'bg-[#464545] w-[95%] text-[#FFF4A3] border-r-4 border-[#FFF4A3] font-aleo flex items-center justify-center p-2 scale-105 duration-300 ' : 'bg-[#252424] flex items-center justify-center p-2 font-aleo w-full text-white'}`}
+                            className={` ${item.id === id ? 'bg-[#464545] w-[95%] text-[#FFF4A3] border-r-4 border-[#FFF4A3] font-aleo flex items-center justify-center p-2 scale-105 duration-300 ' : 'bg-[#252424] flex items-center justify-center p-2 font-aleo w-full text-white'} ${item.id === 4 ? "md:hidden" : ""}`}
                             onClick={() => {setId(item.id)}}>
-                                <div className={`flex items-center justify-center ${item.id === 3 ? 'translate-x-5' : ''}`}>
+                                <div className={`flex items-center justify-center ${item.id === 3 ? 'translate-x-5' : ''} ${item.id === 4 ? "md:hidden" : ""}`}>
                                  {item.img}  
                                 <h1 className='ml-2 mt-1 '> {item.name} </h1>
                                 </div>
@@ -105,10 +113,9 @@ export function Render({imagem, nome}){
 
                 <div className='absolute bottom-2 flex flex-col justify-center items-center w-full'>
 
-                    <div className={`${logOut ? 'w-[80%] rounded-lg flex flex-col font-poltawski font-bold p-1 bg-[#464545] items-center py-3 px-1 text-white absolute -translate-y-28 ' : 'hidden'}`}>
+                    <div className={`duration-500 ${logOut ? 'w-[80%] rounded-lg flex flex-col font-poltawski font-bold p-1 bg-[#464545] items-center py-3 px-1 text-white absolute -translate-y-28 opacity-100' : 'opacity-0'}`}>
                         Você deseja sair?
                         <button className='w-[80%] mt-2 bg-[#FFF4A3] text-[#252424] hover:bg-red-500 duration-300 hover:text-white rounded-md'> Sair </button>
-                        <polygon></polygon>
                     </div>
                     <button className='bg-[#252424] flex items-center justify-center p-2 font-aleo w-full text-white hover:bg-[#464545] hover:text-[#FFF4A3] hover:border-r-4 hover:border-[#FFF4A3]  duration-300' onClick={VisibleLogOut}>
 
@@ -137,10 +144,31 @@ export function Render({imagem, nome}){
 
 
         {/* Render Mobile */}
-        <div className='w-dvw h-dvh flex justify-center flex-col items-center md:hidden'>
+        <div className='w-screen h-screen flex justify-center flex-col items-center md:hidden'>
         
         <div className='w-full bg-[#3F3D3D] h-full flex justify-center text-black'>
             {renderContent()}
+
+            <div
+                        onClick={() => setLogOut(false)}
+                        className={`md:hidden w-full h-full rounded-lg flex justify-center flex-col font-poltawski font-bold p-1 z-50 bg-[#464545] items-center py-3 px-1 text-white absolute bg-black/20  ${logOut ? 'visible' : 'invisible'}`}>
+
+                        <div
+                            onClick={(e) => e.stopPropagation()}
+                            className={`duration-500 w-[80%] rounded-lg flex flex-col font-poltawski font-bold bg-white items-center py-5 px-1 text-[#252424] shadow-black shadow-lg ${logOut ? 'opacity-100 scale-100 ' : 'opacity-0 scale-125'}`}>
+                            <svg xmlns="http://www.w3.org/2000/svg" height="100px" viewBox="0 -960 960 960" width="100px" fill="currentColor"><path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h280v80H200v560h280v80H200Zm440-160-55-58 102-102H360v-80h327L585-622l55-58 200 200-200 200Z" /></svg>
+                            <h1 className='font-poltawski font-bold text-xl'>Você deseja sair?</h1>
+                            <h3 className='font-aleo font-light text-sm'>Ao sair, você terá que fazer login</h3>
+
+                            <button className='w-[60%] mt-2 translate-y-2 text-white bg-red-500 duration-300 rounded-md py-1'> Sair da conta </button>
+
+                            <button onClick={() => setLogOut(false)} className="absolute left-0 top-1 text-[#25242] active:text-red-600  duration-500">
+                                <svg width="31" height="33" viewBox="0 0 31 37" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M9.82749 22.9235L8.42749 21.5235L14.0275 15.9235L8.42749 10.3235L9.82749 8.92346L15.4275 14.5235L21.0275 8.92346L22.4275 10.3235L16.8275 15.9235L22.4275 21.5235L21.0275 22.9235L15.4275 17.3235L9.82749 22.9235Z" fill="currentColor" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
         </div>
 
         <div className='h-fit w-full bg-[#252424] p-2 relative z-10'>
@@ -149,7 +177,7 @@ export function Render({imagem, nome}){
                     <button 
                     key={item.id}
                     className={`${item.id === id ? "scale-115 shadow-lg shadow-[#fff4a3] text-[#fff4a3] flex p-1 items-center justify-center h-12 aspect-square rounded-full bg-[#3f3f3f] ease-in-out transition-all duration-500 -translate-y-2 border border-[#fff4a3]" : "flex p-1 items-center justify-center h-12 aspect-square rounded-full bg-[#3f3f3f] shadow-lg shadow-black text-white duration-500 border border-[#3f3f3f]"}`}
-                    onClick={() => setId(item.id)}> 
+                    onClick={() => { item.id === 4 ? VisibleLogOut() : setId(item.id) }}> 
                         {item.img}
                     </button>
                 ))}
