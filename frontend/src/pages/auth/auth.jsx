@@ -1,4 +1,5 @@
 import ImgLogin from '../../assets/imgs/login.png'
+import { useNavigate } from 'react-router-dom'
 import { useState, useRef, useEffect } from 'react'
 import gsap from 'gsap'
 
@@ -23,6 +24,7 @@ export function Auth(){
     const MainRef = useRef(null)
     const [error, setError] = useState(false)
     const VisiblePassword = visible ? 'text' : 'password'
+    const Navigate = useNavigate()
 
     const Verification = () => {
         const Emailvalid = email.includes('@') && email.endsWith('.com') && email.length > 3
@@ -46,7 +48,7 @@ export function Auth(){
         }
 
         setError(false)
-        // Colocando em uma const, os dados, usei para teste, mas funciona
+        // Colocando em uma const os dados, usei para teste, mas funciona
         const Data = {email: email, password: password}
     }
 
@@ -78,7 +80,7 @@ export function Auth(){
     return (
     <div className="flex w-screen h-screen overflow-hidden">
         <div className='bg-primary-300 w-[45%] h-full flex items-center justify-center relative z-10'>
-            <button className='flex w-fit h-fit absolute space-x-2 items-center text-white hover:text-primary-100 top-1 left-2 font-albert font-medium duration-500'>
+            <button onClick={() => Navigate("/")} className='flex w-fit h-fit absolute space-x-2 items-center text-white hover:text-primary-100 top-2 left-2 font-albert font-medium duration-500'>
                 {ToBack}
                 <h2 className='translate-y-0.5'>Voltar</h2>
             </button>
@@ -90,16 +92,16 @@ export function Auth(){
                     <h1 className={`font-albert text-primary-100 absolute bottom-0 translate-y-8 duration-500 ${error ? 'opacity-100' : 'opacity-0'}`}>Suas credencias estão incorretas, tente novamente!</h1>
                 </div>
 
-                <div className='flex flex-col space-y-8 w-4/5 p-1 items-center justify-center'>
+                <div className='flex flex-col space-y-8 w-[80%] p-1 items-center justify-center'>
                     {form.map((item, index) => (
                         <div key={index} className='w-full flex flex-col relative'>
                             <label className='font-albert font-normal text-[#d1d1d1] mb-1'>{item.label}</label>
                             <input
                             value={item.value}
                             onChange={item.onchange}
-                            placeholder={item.placeholder}
+                            
                             type={item.type}
-                            className='w-full text-white rounded-lg bg-[#464343] p-2 pl-1 outline-none'
+                            className='w-full text-white rounded-lg bg-[#464343] p-2 pl-2 outline-none placeholder:font-poppins placeholder:text-[#b1afaf]'
                             onKeyDown={(e) => {
                                 if (e.key === 'Enter') {
                                     Sendvalues()
@@ -120,13 +122,8 @@ export function Auth(){
                 </div>
 
                 <button
-                onKeyDown={(e) => {
-                    if (e.key === 'Enter'){
-                        Sendvalues(e)
-                    }
-                }}
                 onClick={Sendvalues} 
-                className='bg-primary-100 shadow-sm shadow-black  p-2 w-4/5 text-center font-poppins font-bold text-white rounded-lg h-[8%] text-[22px] flex justify-center items-center hover:bg-[#ec2929] duration-500 active:bg-primary-100/70'>Entrar</button>
+                className='bg-primary-100 shadow-sm shadow-black  p-2 w-[80%] tracking-wide text-center font-poppins font-bold text-white rounded-lg h-[8%] text-[22px] flex justify-center items-center hover:bg-[#ec2929] duration-500 active:bg-primary-100/70'>Entrar</button>
             </div>
         </div>
 
