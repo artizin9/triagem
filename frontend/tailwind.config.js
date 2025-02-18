@@ -4,12 +4,26 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        poltawski: ['Poltawski Nowy', 'sans-serif'],
-        aleo: ['Aleo', 'sans-serif']
+        poppins: ['Poppins', 'sans-serif'],
+        albert: ['Albert Sans', 'sans-serif']
       }, 
       colors: {
-        'fundoRender': '#3F3D3D',
+        'primary-100': '#FF1D15',
+        'primary-200': '#CFCBCB',
+        'primary-300': '#1E1D1D'
+     },
+     keyframes: {
+      vibrate: {
+        '0%': { transform: 'translateY(0) rotate(0deg)' },
+        '25%': { transform: 'translateY(-2px) rotate(5deg)' },
+        '50%': { transform: 'translateY(2px) rotate(0deg)' },
+        '75%': { transform: 'translateY(-1px) rotate(-5deg)' },
+        '100%': { transform: 'translateY(0) rotate(0deg)' },
       },
+    },
+    animation: {
+      vibrate: 'vibrate 1s ease-in-out',
+    },
     },
   },
   plugins: [
