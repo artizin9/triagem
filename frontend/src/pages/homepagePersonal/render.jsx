@@ -1,5 +1,8 @@
 import { useState } from "react"
 import { ModalLogOut } from "./modals/LogOut"
+import { ModalAluno } from "./modals/ModalAluno"
+import { Aluno } from "./aluno/aluno"
+
 
 const Iconreport = (<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path d="M10 14.1667C9.76389 14.1667 9.56597 14.0868 9.40625 13.9271C9.24653 13.7674 9.16667 13.5694 9.16667 13.3333C9.16667 13.0972 9.24653 12.8993 9.40625 12.7396C9.56597 12.5799 9.76389 12.5 10 12.5C10.2361 12.5 10.434 12.5799 10.5938 12.7396C10.7535 12.8993 10.8333 13.0972 10.8333 13.3333C10.8333 13.5694 10.7535 13.7674 10.5938 13.9271C10.434 14.0868 10.2361 14.1667 10 14.1667ZM9.16667 10.8333V2.5H10.8333V10.8333H9.16667ZM4.16667 17.5C3.70833 17.5 3.31597 17.3368 2.98958 17.0104C2.66319 16.684 2.5 16.2917 2.5 15.8333V13.3333H4.16667V15.8333H15.8333V13.3333H17.5V15.8333C17.5 16.2917 17.3368 16.684 17.0104 17.0104C16.684 17.3368 16.2917 17.5 15.8333 17.5H4.16667Z" fill="currentColor"/>
@@ -37,19 +40,21 @@ const Buttons = [
 export function Render({imagem, nome}){
     const [isHover, setIsHover] = useState(false)
     const [LogOutModal, setLogOutModal] = useState(false)
+    const [AlunosModal, setAlunosModal] = useState(false)
     const [id, setId] = useState(1)
+    const [alunos, setAlunos] = useState([])
 
     const RenderComponent = () => {
         switch (id) {
             case 1:
-                return 1
+                return <Aluno aluno={alunos} Open={() => setAlunosModal(true)}/>
             case 2:
                 return 4
         }
     }
 
     return (
-        <div className="w-full h-full flex items-center bg-[#222222]">
+        <div className="w-full h-full flex items-center bg-[#222222] overflow-hidden">
             <div className="bg-[#161616] flex flex-col w-[15%] h-full rounded-tr-lg rounded-br-lg space-y-6 relative">
                 <div className="px-2 py-1 flex justify-between items-center">
                     <div className="flex items-center space-x-2">
@@ -96,13 +101,19 @@ export function Render({imagem, nome}){
                 </div>
             </div>
 
-            <div className="w-4/5 h-full">
+            <div className="w-4/5 h-full flex items-center">
                 {RenderComponent()}
             </div>
 
             <ModalLogOut 
             Open={LogOutModal}
             Close={() => setLogOutModal(false)}
+            />
+            <ModalAluno 
+            aluno={alunos}
+            setAluno={setAlunos}
+            Open={AlunosModal}
+            Close={() => setAlunosModal(false)}
             />
         </div>
     )
