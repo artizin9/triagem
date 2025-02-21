@@ -9,8 +9,9 @@ export default {
       }, 
       colors: {
         'primary-100': '#FF1D15',
-        'primary-200': '#CFCBCB',
-        'primary-300': '#1E1D1D'
+        'primary-200': '#d7d7d7',
+        'primary-300': '#1E1D1D',
+        'primary-400': '#161616'
      },
      keyframes: {
       vibrate: {

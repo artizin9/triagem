@@ -1,6 +1,8 @@
 import { useState } from "react"
 import { ModalLogOut } from "./modals/LogOut"
-import { ModalAluno } from "./modals/ModalAluno"
+import { CreateAluno } from "./modals/ModalCreateAluno"
+import { UpdateAluno } from "./modals/ModalUpdateAluno"
+import { DeleteAluno } from "./modals/ModalDeleteAluno"
 import { Aluno } from "./aluno/aluno"
 
 
@@ -37,21 +39,56 @@ const Buttons = [
     }
 ]
 
+
 export function Render({imagem, nome}){
     const [isHover, setIsHover] = useState(false)
     const [LogOutModal, setLogOutModal] = useState(false)
-    const [AlunosModal, setAlunosModal] = useState(false)
+    const [CreateModal, setCreateModal] = useState(false)
+    const [UpdateModal, setUpdateModal] = useState(false)
+    const [DeleteModal, setDeleteModal] = useState(false)
     const [id, setId] = useState(1)
     const [alunos, setAlunos] = useState([])
+    const [form, setForm] = useState({
+        id: Date.now(), // id teste, coloque o id verdadeiro dps
+        name: '',
+        email: '',
+        phone: '',
+        state: '',
+        city: '',
+        password: '',
+        photo: null
+    })
+    const CleanForm = () => setForm({
+        id: Date.now(),
+        name: '',
+        email: '',
+        phone: '',
+        state: '',
+        city: '',
+        password: '',
+        photo: null
+    })
 
     const RenderComponent = () => {
         switch (id) {
             case 1:
-                return <Aluno aluno={alunos} Open={() => setAlunosModal(true)}/>
+                return <Aluno 
+                        aluno={alunos} 
+                        OpenCreate={() => setCreateModal(true)}
+                        OpenUpdate={() => setUpdateModal(true)}
+                        OpenDelete={() => setDeleteModal(true)}
+                        setForm={setForm}
+                        />
             case 2:
                 return 4
         }
     }
+
+    function DeletarAluno() {
+        setAlunos((alunos) => alunos.filter((aluno) => aluno?.id !== form.id))
+        setDeleteModal(false)
+    }
+
 
     return (
         <div className="w-full h-full flex items-center bg-[#222222] overflow-hidden">
@@ -62,7 +99,7 @@ export function Render({imagem, nome}){
                             <img src={imagem} className="w-full aspect-square object-cover rounded-full"/>
                         </div>
                         <div className="flex flex-col">
-                            <h1 className="font-poppins font-normal text-[14px] text-white">Kaio jorge</h1>
+                            <h1 className="font-poppins font-normal text-[14px] text-white">{nome}</h1>
                             <h3 className="font-albert font-normal text-[12px] text-primary-200 text-left">Personal</h3>
                         </div>
                     </div>
@@ -109,11 +146,27 @@ export function Render({imagem, nome}){
             Open={LogOutModal}
             Close={() => setLogOutModal(false)}
             />
-            <ModalAluno 
+            <CreateAluno
+            form={form}
+            setForm={setForm}
+            CleanForm={CleanForm} 
             aluno={alunos}
             setAluno={setAlunos}
-            Open={AlunosModal}
-            Close={() => setAlunosModal(false)}
+            Open={CreateModal}
+            Close={() => setCreateModal(false)}
+            />
+            <UpdateAluno
+            form={form}
+            setForm={setForm}
+            aluno={alunos}
+            setAluno={setAlunos}
+            Open={UpdateModal}
+            Close={() => setUpdateModal(false)}
+            />
+            <DeleteAluno 
+            Open={DeleteModal}
+            Close={() => setDeleteModal(false)}
+            Delete={DeletarAluno}
             />
         </div>
     )
