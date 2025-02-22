@@ -1,9 +1,13 @@
 import { useState } from "react"
 import { ModalLogOut } from "./modals/LogOut"
-import { CreateAluno } from "./modals/ModalCreateAluno"
-import { UpdateAluno } from "./modals/ModalUpdateAluno"
-import { DeleteAluno } from "./modals/ModalDeleteAluno"
+import { CreateAluno } from "./modals/modalAluno/ModalCreateAluno"
+import { UpdateAluno } from "./modals/modalAluno/ModalUpdateAluno"
+import { DeleteAluno } from "./modals/modalAluno/ModalDeleteAluno"
+import { CreateTreino } from "./modals/modalTreino/ModalCreateTreino"
+import { DeleteTreino } from "./modals/modalTreino/ModalDeleteTreino"
+import { UpdateTreino } from "./modals/modalTreino/ModalUpdateTreino"
 import { Aluno } from "./aluno/aluno"
+import { Treino } from "./treino/treino"
 
 
 const Iconreport = (<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -46,6 +50,9 @@ export function Render({imagem, nome}){
     const [CreateModal, setCreateModal] = useState(false)
     const [UpdateModal, setUpdateModal] = useState(false)
     const [DeleteModal, setDeleteModal] = useState(false)
+    const [CreateModalTreino, setCreateModalTreino] = useState(false)
+    const [UpdateModalTreino, setUpdateModalTreino] = useState(false)
+    const [DeleteModalTreino, setDeleteModalTreino] = useState(false)
     const [id, setId] = useState(1)
     const [alunos, setAlunos] = useState([])
     const [form, setForm] = useState({
@@ -68,6 +75,23 @@ export function Render({imagem, nome}){
         password: '',
         photo: null
     })
+    const [treino, setTreino] = useState([])
+    const [formTreino, setFormTreino] = useState({
+        id: Date.now(), // id teste, coloque o id verdadeiro dps
+        name: '',
+        destined: '',
+        time: '',
+        weekDay: '',
+        photo: null
+    })
+    const CleanTreino = () => setFormTreino({
+        id: Date.now(), // id teste, coloque o id verdadeiro dps
+        name: '',
+        destined: '',
+        time: '',
+        weekDay: '',
+        photo: null
+    })
 
     const RenderComponent = () => {
         switch (id) {
@@ -80,7 +104,13 @@ export function Render({imagem, nome}){
                         setForm={setForm}
                         />
             case 2:
-                return 4
+                return <Treino 
+                        treino={treino}
+                        OpenCreateTraining={() => setCreateModalTreino(true)}
+                        OpenUpdateTraining={() => setUpdateModalTreino(true)}
+                        OpenDeleteTraining={() => setDeleteModalTreino(true)}
+                        setFormTreino={setFormTreino}
+                       />
         }
     }
 
@@ -89,6 +119,10 @@ export function Render({imagem, nome}){
         setDeleteModal(false)
     }
 
+    function DeletarTreino(){
+        setTreino((treinos) => treinos.filter((treino) => treino.id !== formTreino.id))
+        setDeleteModalTreino(false)
+    }
 
     return (
         <div className="w-full h-full flex items-center bg-[#222222] overflow-hidden">
@@ -167,6 +201,28 @@ export function Render({imagem, nome}){
             Open={DeleteModal}
             Close={() => setDeleteModal(false)}
             Delete={DeletarAluno}
+            />
+            <CreateTreino 
+            Open={CreateModalTreino}
+            Close={() => setCreateModalTreino(false)}
+            CleanformTreino={CleanTreino}
+            formTreino={formTreino}
+            setformTreino={setFormTreino}
+            treino={treino}
+            setTreino={setTreino}
+            />
+            <UpdateTreino 
+            Open={UpdateModalTreino}
+            Close={() => setUpdateModalTreino(false)}
+            formTreino={formTreino}
+            setformTreino={setFormTreino}
+            treino={treino}
+            setTreino={setTreino}
+            />
+            <DeleteTreino
+            Open={DeleteModalTreino}
+            Close={() => setDeleteModalTreino(false)}
+            Delete={DeletarTreino}
             />
         </div>
     )

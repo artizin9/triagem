@@ -16,7 +16,7 @@ export function CardAluno({aluno, Delete, UpdateInfo, Seetraining, type}){
     const photo = aluno?.photo ? aluno?.photo : PhotoDefaultSrc
 
     return (
-        <div className="bg-primary-400 w-[90%] h-[60%] flex flex-col relative items-center rounded-lg p-2 shadow-md shadow-black/40 justify-between">
+        <div className="bg-primary-400 w-[90%] h-[60%] flex flex-col relative items-center rounded-lg p-2 shadow-md shadow-black/40 justify-between min-h-[320px]">
             <div className="flex flex-col items-center justify-center w-[60%]"> 
                 <div className="w-full aspect-square rounded-full bg-primary-400 space-y-1">
                 <img src={photo} className="w-full h-full object-cover rounded-full" />
