@@ -104,7 +104,7 @@ export function CreateAluno({ aluno, setAluno, Close, Open, form, setForm, Clean
             return
         }
 
-        setAluno((alunos) => [...alunos, form])
+        setAluno((alunos) => [...alunos, {...form, training: [] }])
         setError(false)
         CleanForm()
         setMessageRight(true)
@@ -167,7 +167,7 @@ export function CreateAluno({ aluno, setAluno, Close, Open, form, setForm, Clean
                                     onChange={item.onChange}
                                     className="border-b-white border-b w-full text-white outline-none bg-[#131313] appearance-none"
                                 >
-                                    <option className="text-[#d7d7d7]" value="">{item.name === "state" ? 'Selecione o estado' : 'Selecione a cidade'}</option>
+                                    <option className="text-primary-200" value="">{item.name === "state" ? 'Selecione o estado' : 'Selecione a cidade'}</option>
                                     <option className="text-white" value="São Paulo">São Paulo</option>
                                 </select>
                             ) : (
@@ -177,7 +177,7 @@ export function CreateAluno({ aluno, setAluno, Close, Open, form, setForm, Clean
                                     placeholder={item.placeholder}
                                     type={item.label === 'Senha:' ? (visible ? "text" : "password") : item.type}
                                     onChange={item.onChange}
-                                    className="border-b-white border-b w-full text-white outline-none bg-[#131313]"
+                                    className="border-b-white border-b w-full text-white outline-none bg-[#131313] placeholder:font-albert placeholder:font-medium placeholder:text-[12px] placeholder:text-primary-200"
                                     maxLength={item.maxlength}
                                 />)}
 

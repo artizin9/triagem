@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
+import PhotoDefaultTreino from "../../../../assets/imgs/selecionarFoto.png"
 
-const PhotoDefaultSrc = ""
 
 const Clean = (<svg xmlns="http://www.w3.org/2000/svg" height="22" viewBox="0 -960 960 960" width="22" fill="currentColor"><path d="M440-520h80v-280q0-17-11.5-28.5T480-840q-17 0-28.5 11.5T440-800v280ZM200-360h560v-80H200v80Zm-58 240h98v-80q0-17 11.5-28.5T280-240q17 0 28.5 11.5T320-200v80h120v-80q0-17 11.5-28.5T480-240q17 0 28.5 11.5T520-200v80h120v-80q0-17 11.5-28.5T680-240q17 0 28.5 11.5T720-200v80h98l-40-160H182l-40 160Zm676 80H142q-39 0-63-31t-14-69l55-220v-80q0-33 23.5-56.5T200-520h160v-280q0-50 35-85t85-35q50 0 85 35t35 85v280h160q33 0 56.5 23.5T840-440v80l55 220q13 38-11.5 69T818-40Zm-58-400H200h560Zm-240-80h-80 80Z"/></svg>)
 
@@ -72,7 +72,7 @@ export function CreateTreino({ treino, setTreino, Close, Open, formTreino, setfo
             return
         }
 
-        setTreino((treinos) => [...treinos, formTreino])
+        setTreino((treinos) => [...treinos, {...formTreino, exercise: [] }])
         setError(false)
         CleanformTreino()
         setMessageRight(true)
@@ -100,7 +100,7 @@ export function CreateTreino({ treino, setTreino, Close, Open, formTreino, setfo
     </svg>
     )
 
-    useEffect(() => { console.log(treino) }, [treino])
+    useEffect(() => { }, [treino])
 
     return (
         <div onClick={Close} className={`w-full h-full bg-black flex justify-center items-center bg-opacity-30 fixed insert-0 ${Open ? 'visible' : 'invisible'}`}>
@@ -113,7 +113,7 @@ export function CreateTreino({ treino, setTreino, Close, Open, formTreino, setfo
                 </div>
 
                 <div className="w-1/5 aspect-square rounded-full relative bg-[#252424] mt-4 duration-500 border-opacity-0 ease-in-out transition-all border border-primary-100 hover:border-opacity-100  hover:scale-105">
-                    <img src={photo} className="w-full aspect-square rounded-full object-cover duration-500 hover:border-white hover:scale-105" />
+                    <img src={photo ? photo : PhotoDefaultTreino} className="w-full aspect-square rounded-full object-cover duration-500 hover:border-white hover:scale-105" />
                     <input type="file" accept="image/*" onChange={HandleFileChange} className="opacity-0 absolute top-0 w-full h-full cursor-pointer" />
                 </div>
                 <div className="relative flex justify-center items-center">
@@ -133,7 +133,7 @@ export function CreateTreino({ treino, setTreino, Close, Open, formTreino, setfo
                                     onChange={item.onChange}
                                     className="border-b-white border-b w-full text-white outline-none bg-[#131313] appearance-none"
                                 >
-                                    <option className="text-[#d7d7d7]" value="">{item.name === "destined" ? 'Selecione o destino' : 'Selecione o dia'}</option>
+                                    <option className="text-primary-200 text-[12px]" value="">{item.name === "destined" ? 'Selecione o destino' : 'Selecione o dia'}</option>
                                     {item.name === "destined" ? OptionsDestined.map((item, index) => (
                                         <option key={index} value={item.destined}>{item.destined}</option>
                                     )) :  OptionsWeekDay.map((item, index) => (
@@ -147,7 +147,7 @@ export function CreateTreino({ treino, setTreino, Close, Open, formTreino, setfo
                                     placeholder={item.placeholder}
                                     type={item.type}
                                     onChange={item.onChange}
-                                    className="border-b-white border-b w-full text-white outline-none bg-[#131313]"
+                                    className="border-b-white border-b w-full text-white outline-none bg-[#131313] placeholder:font-albert placeholder:font-medium placeholder:text-[12px] placeholder:text-primary-200"
                                 />)}
                             {item.type === "select" ? (item.name === "destined" ? SetaDestined : SetaWeekday) : ''}
                         </div>

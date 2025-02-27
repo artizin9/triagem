@@ -12,7 +12,7 @@ const addTreino = (<svg width="24" height="24" viewBox="0 0 24 24" className="ab
     <rect x="18.5" y="3.5" width="2" height="7" fill="white"/>
     </svg>)
 
-export function Treino({ treino, setFormTreino, OpenCreateTraining, OpenCreateExercise, OpenDeleteTraining, OpenUpdateTraining}) {
+export function Treino({ treino, setFormTreino, OpenCreateTraining, OpenCreateExercise, OpenDeleteTraining, OpenUpdateTraining, OpenSendTraining}) {
 
     const [seta, setSeta] = useState(false)
     const [searchQuery, setSearchQuery] = useState("");
@@ -88,10 +88,18 @@ export function Treino({ treino, setFormTreino, OpenCreateTraining, OpenCreateEx
                             setFormTreino(treino)
                             OpenUpdateTraining()
                         }}
+                        CreateExercise={() => {
+                            setFormTreino(treino)
+                            OpenCreateExercise()
+                        }}
                         treino={treino}
                         Delete={() => {
                             setFormTreino(treino)
                             OpenDeleteTraining()    
+                        }}
+                        SendTraining={() => {
+                            setFormTreino(treino.id)
+                            OpenSendTraining()
                         }}
                         type="treino"
                         key={treino.id} />

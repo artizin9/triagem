@@ -4,8 +4,13 @@ import { CreateAluno } from "./modals/modalAluno/ModalCreateAluno"
 import { UpdateAluno } from "./modals/modalAluno/ModalUpdateAluno"
 import { DeleteAluno } from "./modals/modalAluno/ModalDeleteAluno"
 import { CreateTreino } from "./modals/modalTreino/ModalCreateTreino"
-import { DeleteTreino } from "./modals/modalTreino/ModalDeleteTreino"
 import { UpdateTreino } from "./modals/modalTreino/ModalUpdateTreino"
+import { DeleteTreino } from "./modals/modalTreino/ModalDeleteTreino"
+import { ReadExercise } from "./modals/ModalExercise/ModalReadExercise"
+import { CreateExercise } from "./modals/ModalExercise/ModalCreateExercise"
+import { SendTraining } from "./modals/modalTreino/ModalSendTrainig"
+import { UpdateExercise } from "./modals/ModalExercise/ModalUpdateExercise"
+import { DeleteExercise } from "./modals/ModalExercise/ModalDeleteExercise"
 import { Aluno } from "./aluno/aluno"
 import { Treino } from "./treino/treino"
 
@@ -53,6 +58,11 @@ export function Render({imagem, nome}){
     const [CreateModalTreino, setCreateModalTreino] = useState(false)
     const [UpdateModalTreino, setUpdateModalTreino] = useState(false)
     const [DeleteModalTreino, setDeleteModalTreino] = useState(false)
+    const [SendModalTreino, setSendModalTreino] = useState(false)
+    const [CreateModalExercise, setCreateModalExercise] = useState(false)
+    const [ReadModalExercise, setReadModalExercise] = useState(false)
+    const [UpdateModalExercise, setUpdateModalExercise] = useState(false)
+    const [DeleteModalExercise, setDeleteModalExercise] = useState(false)
     const [id, setId] = useState(1)
     const [alunos, setAlunos] = useState([])
     const [form, setForm] = useState({
@@ -75,6 +85,7 @@ export function Render({imagem, nome}){
         password: '',
         photo: null
     })
+
     const [treino, setTreino] = useState([])
     const [formTreino, setFormTreino] = useState({
         id: Date.now(), // id teste, coloque o id verdadeiro dps
@@ -93,12 +104,36 @@ export function Render({imagem, nome}){
         photo: null
     })
 
+    const [formExercise, setFormExercise] = useState({
+        id: Date.now(), // id teste, coloque o id verdadeiro dps
+        name: '',
+        numberExec: '',
+        numberRep: '',
+        execByRep: '',
+        interval: '',
+        description: '',
+        photo: null
+    })
+    const CleanExercise = () => setFormExercise({
+        id: Date.now(), // id teste, coloque o id verdadeiro dps
+        name: '',
+        numberExec: '',
+        numberRep: '',
+        execByRep: '',
+        interval: '',
+        description: '',
+        photo: null
+    })
+
     const RenderComponent = () => {
         switch (id) {
             case 1:
                 return <Aluno 
                         aluno={alunos} 
-                        OpenCreate={() => setCreateModal(true)}
+                        OpenCreate={() => {
+                            CleanForm()
+                            setCreateModal(true)
+                        }}
                         OpenUpdate={() => setUpdateModal(true)}
                         OpenDelete={() => setDeleteModal(true)}
                         setForm={setForm}
@@ -106,9 +141,14 @@ export function Render({imagem, nome}){
             case 2:
                 return <Treino 
                         treino={treino}
-                        OpenCreateTraining={() => setCreateModalTreino(true)}
+                        OpenCreateTraining={() => {
+                            CleanTreino()
+                            setCreateModalTreino(true)
+                        }}
                         OpenUpdateTraining={() => setUpdateModalTreino(true)}
                         OpenDeleteTraining={() => setDeleteModalTreino(true)}
+                        OpenSendTraining={() => setSendModalTreino(true)}
+                        OpenCreateExercise={() => setCreateModalExercise(true)}
                         setFormTreino={setFormTreino}
                        />
         }
@@ -124,6 +164,23 @@ export function Render({imagem, nome}){
         setDeleteModalTreino(false)
     }
 
+    function DeletarExercise() {
+        setTreino((treinos) => 
+            treinos.map((treino) => {
+                if (treino.id === formTreino.id) {
+                    return {
+                        ...treino,
+                        exercise: treino.exercise.filter((exercise) => exercise.id !== formExercise.id)
+                    }
+                }
+                return treino
+            })
+        )
+        setDeleteModalExercise(false)
+    }
+
+    console.log("Alunos", alunos)
+    
     return (
         <div className="w-full h-full flex items-center bg-[#222222] overflow-hidden">
             <div className="bg-[#161616] flex flex-col w-[15%] h-full rounded-tr-lg rounded-br-lg space-y-6 relative">
@@ -208,6 +265,7 @@ export function Render({imagem, nome}){
             CleanformTreino={CleanTreino}
             formTreino={formTreino}
             setformTreino={setFormTreino}
+            formExercise={formExercise}
             treino={treino}
             setTreino={setTreino}
             />
@@ -223,6 +281,67 @@ export function Render({imagem, nome}){
             Open={DeleteModalTreino}
             Close={() => setDeleteModalTreino(false)}
             Delete={DeletarTreino}
+            />
+            <SendTraining
+            Open={SendModalTreino}
+            Close={() => setSendModalTreino(false)}
+            Alunos={alunos}
+            setAlunos={setAlunos}
+            setTreino={setTreino}
+            Treino={treino}
+            formTreino={formTreino}
+            setFormTreino={setFormTreino}
+            form={form}
+            setForm={setForm}
+            />
+            <CreateExercise
+            Open={CreateModalExercise}
+            Close={() => setCreateModalExercise(false)}
+            Treino={treino}
+            setTreino={setTreino}
+            formExercise={formExercise}
+            setFormExercise={setFormExercise}
+            formTreino = {formTreino}
+            CleanFormExercise={CleanExercise}
+            ReadExercise={() => {
+                setFormTreino(treino)
+                setFormExercise(treino?.exercise || {})
+                setCreateModalExercise(false)
+                setReadModalExercise(true)
+            }}
+            />
+            <ReadExercise 
+            Back={() => {
+                CleanExercise()
+                setReadModalExercise(false)
+                setCreateModalExercise(true)
+            }}
+            Open={ReadModalExercise}
+            Treinos={treino}
+            form={formTreino}
+            setFormExercise={setFormExercise}
+            setFormTreino={setFormTreino}
+            UpdateExercise={() => {
+                setReadModalExercise(false)
+                setUpdateModalExercise(true)}}
+            DeleteExercise={() => setDeleteModalExercise(true)}
+            />
+            <UpdateExercise 
+            Open={UpdateModalExercise}
+            Close={() => setUpdateModalExercise(false)}
+            Treino={treino}
+            setTreino={setTreino}
+            setFormExercise={setFormExercise}
+            formExercise={formExercise}
+            formTreino={formTreino}
+            ReadExercise={() => {
+                setReadModalExercise(true)
+                setUpdateModalExercise(false)}}
+            />
+            <DeleteExercise
+            Open={DeleteModalExercise}
+            Close={() => setDeleteModalExercise(false)}
+            Delete={DeletarExercise}
             />
         </div>
     )
