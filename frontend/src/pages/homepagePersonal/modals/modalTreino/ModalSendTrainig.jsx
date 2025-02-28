@@ -1,15 +1,17 @@
 import { CardAluno } from "../../components/CardAluno"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 export function SendTraining({Open, Close, Next, Alunos, setAlunos, Treino, setTreino, formTreino, setFormTreino, form, setForm}){
     const { id } = form
-    const [select, setSelect] = useState(false)
+    const [sended, setSended] = useState(false)
 
     const Send = () => {
         setAlunos((alunos) => {
             return alunos.map((aluno) => {
+                console.log("opa")
                 return aluno?.id === id ? {...aluno, training: Treino.map((treino) => {
-                        return treino?.id ? {...treino, send: true} : treino
+                    console.log("opos")
+                        return treino?.id === formTreino ? {...treino, send: true} : treino
                     })} : aluno 
             })
         })
@@ -18,24 +20,27 @@ export function SendTraining({Open, Close, Next, Alunos, setAlunos, Treino, setT
     const notSend = () => {
         setAlunos((alunos) => {
             return alunos.map((aluno) => {
-                return aluno?.id === id ? {...aluno, training: Treino.map((treino) => {
-                        return treino?.id ? treino.filter((t, i) => t.id !== i) : treino })} : aluno 
+                return aluno?.id === id ? {...aluno, training: aluno.training.filter((treino, idx) => {
+                    console.log("Form", formTreino.id)
+                    console.log("idx", idx)
+                    treino.id !== formTreino})} : aluno
             })
         })
     }
 
 
     const SelectAlunos = () => {
-        setSelect(!select)
-
-        if (select === "true") {
+        console.log(sended)
+        if (sended === true) {
+            console.log("teste")
             Send()
-        } else {
+        } if (sended === false) {
+            console.log("teste1")
             notSend()
         }
     }
 
-    console.log("id", id)
+    useEffect(() => {console.log("Alunos:", JSON.stringify(Alunos, null, 2))}, [Alunos])
     
     return (
         <div onClick={Close} className={`w-full h-full bg-black flex justify-center items-center bg-opacity-30 fixed insert-0 ${Open ? 'visible' : 'invisible'}`}>
@@ -47,7 +52,7 @@ export function SendTraining({Open, Close, Next, Alunos, setAlunos, Treino, setT
                     <h1 className="font-albert font-normal text-[16px] text-white">Envie o treino para seus alunos</h1>
                 </div>
 
-                <div className="w-4/5 grid grid-cols-3 gap-4 pt-4 h-full overflow-y-auto">
+                <div className="w-4/5 grid grid-cols-3 gap-4 pt-4 h-full overflow-y-auto ml-4">
                     {Alunos.map((aluno) => {
                         return (
                             <CardAluno 
@@ -56,10 +61,10 @@ export function SendTraining({Open, Close, Next, Alunos, setAlunos, Treino, setT
                             type="send"
                             SelectAluno={() => {
                                 setForm(aluno)
+                                setFormTreino(aluno.training)
                                 SelectAlunos()
-                                Send()
                             }}
-                            select={select}
+                            setSended={setSended}
                             />
                         )
                     })}

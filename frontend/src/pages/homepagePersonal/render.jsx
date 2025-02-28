@@ -179,7 +179,6 @@ export function Render({imagem, nome}){
         setDeleteModalExercise(false)
     }
 
-    console.log("Alunos", alunos)
     
     return (
         <div className="w-full h-full flex items-center bg-[#222222] overflow-hidden">
