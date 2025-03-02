@@ -6,18 +6,23 @@ const iconDelete = (<svg width="22" height="22" viewBox="0 0 16 16" fill="none" 
     </svg>
     )
 
-export function CardTreino({treino, Delete, UpdateInfo, CreateExercise, type, SendTraining}){
+export function CardTreino({treino, Delete, UpdateInfo, CreateExercise, type, SendTraining, WithDraw, SeeExercise}){
 
     const photo = treino?.photo ? treino?.photo : noPhoto
 
     return (
-        <div className="bg-primary-400 w-[90%] h-[60%] flex flex-col relative items-center rounded-lg p-2 shadow-md shadow-black/40 justify-between min-h-[330px]">
+        <div className={`bg-primary-400 w-[90%] h-[60%] flex flex-col relative items-center rounded-lg p-2 shadow-md shadow-black/40 justify-between ${type === "treino" ? "min-h-[330px]" : "min-h-[280px]"} ${type === "treino" ? 'bg-primary-400' : 'bg-[#1a1919]'}`}>
             <div className="flex flex-col items-center justify-center w-[60%]"> 
                 <div className="w-full aspect-square rounded-full bg-primary-400 space-y-1">
                 <img src={photo} className="w-full h-full object-cover rounded-full" />
             </div> 
             <h1 className="font-poppins font-medium text-[14px] text-white mt-1">{treino?.name}</h1>
-            <h1 className="font-albert font-regular text-[12px] text-primary-200">Para {treino?.destined}</h1>
+            {type === "treino" ? (<h1 className="font-albert font-regular text-[12px] text-primary-200">Para {treino?.destined}</h1>) : (
+                <>
+                <h1 className="font-albert font-regular text-[12px] text-primary-200">Para {treino?.destined}</h1>
+                <h1 className="font-albert font-regular text-[12px] text-primary-200">{treino?.weekDay}</h1>
+                </>
+            )}
             </div>
                 {type === "treino" ? (
                     <div className="w-[95%] items-center p-1 justify-center space-y-3">
@@ -40,12 +45,24 @@ export function CardTreino({treino, Delete, UpdateInfo, CreateExercise, type, Se
                     </button>
                     </div>
                 ) : 
-                ('')
+                (<div className="w-[95%] items-center p-1 justify-center space-y-3">
+                    <button 
+                    onClick={SeeExercise}
+                    className="w-full  whitespace-nowrap py-0.5 bg-white text-primary-400 font-poppins font-bold shadow-black/30 shadow-md duration-500 ease-in-out hover:bg-primary-100/80 hover:text-white rounded-[3px] text-[14px]">
+                        Visualizar exercicios
+                    </button>
+
+                    <button 
+                    onClick={WithDraw}
+                    className="w-full  whitespace-nowrap py-0.5 bg-white text-primary-400 font-poppins font-bold shadow-black/30 shadow-md duration-500 ease-in-out hover:bg-primary-100/80 hover:text-white rounded-[3px] text-[14px]">
+                        Retirar treino
+                    </button>
+                </div>)
                 }
 
                 <button 
                 onClick={Delete}
-                className="text-white hover:text-primary-100 duration-500 ease-in-out absolute top-2 right-1.5">
+                className={`${type === "treino" ? "text-white hover:text-primary-100 duration-500 ease-in-out absolute top-2 right-1.5" : "hidden"}`}>
                     {iconDelete}
                 </button>
             </div>

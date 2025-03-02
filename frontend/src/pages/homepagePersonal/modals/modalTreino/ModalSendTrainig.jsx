@@ -5,43 +5,9 @@ export function SendTraining({Open, Close, Next, Alunos, setAlunos, Treino, setT
     const { id } = form
     const [sended, setSended] = useState(false)
 
-    const Send = () => {
-        setAlunos((alunos) => {
-            return alunos.map((aluno) => {
-                console.log("opa")
-                return aluno?.id === id ? {...aluno, training: Treino.map((treino) => {
-                    console.log("opos")
-                        return treino?.id === formTreino ? {...treino, send: true} : treino
-                    })} : aluno 
-            })
-        })
-    }
-
-    const notSend = () => {
-        setAlunos((alunos) => {
-            return alunos.map((aluno) => {
-                return aluno?.id === id ? {...aluno, training: aluno.training.filter((treino, idx) => {
-                    console.log("Form", formTreino.id)
-                    console.log("idx", idx)
-                    treino.id !== formTreino})} : aluno
-            })
-        })
-    }
-
-
-    const SelectAlunos = () => {
-        console.log(sended)
-        if (sended === true) {
-            console.log("teste")
-            Send()
-        } if (sended === false) {
-            console.log("teste1")
-            notSend()
-        }
-    }
+   // O backend deve fazer a função de enviar o treino para o aluno caso o aluno tenha sido selecionado e o botão de enviar treino tenha sido clicado, o botão deve ficar cinza e com o nome treino enviando
 
     useEffect(() => {console.log("Alunos:", JSON.stringify(Alunos, null, 2))}, [Alunos])
-    
     return (
         <div onClick={Close} className={`w-full h-full bg-black flex justify-center items-center bg-opacity-30 fixed insert-0 ${Open ? 'visible' : 'invisible'}`}>
             <div
@@ -62,9 +28,8 @@ export function SendTraining({Open, Close, Next, Alunos, setAlunos, Treino, setT
                             SelectAluno={() => {
                                 setForm(aluno)
                                 setFormTreino(aluno.training)
-                                SelectAlunos()
                             }}
-                            setSended={setSended}
+                            Sended={sended}
                             />
                         )
                     })}

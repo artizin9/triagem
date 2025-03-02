@@ -98,7 +98,7 @@ export function Treino({ treino, setFormTreino, OpenCreateTraining, OpenCreateEx
                             OpenDeleteTraining()    
                         }}
                         SendTraining={() => {
-                            setFormTreino(treino.id)
+                            setFormTreino(treino)
                             OpenSendTraining()
                         }}
                         type="treino"

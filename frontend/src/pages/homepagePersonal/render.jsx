@@ -3,6 +3,7 @@ import { ModalLogOut } from "./modals/LogOut"
 import { CreateAluno } from "./modals/modalAluno/ModalCreateAluno"
 import { UpdateAluno } from "./modals/modalAluno/ModalUpdateAluno"
 import { DeleteAluno } from "./modals/modalAluno/ModalDeleteAluno"
+import { SeeTraining } from "./modals/modalAluno/ModalSeeTraining"
 import { CreateTreino } from "./modals/modalTreino/ModalCreateTreino"
 import { UpdateTreino } from "./modals/modalTreino/ModalUpdateTreino"
 import { DeleteTreino } from "./modals/modalTreino/ModalDeleteTreino"
@@ -55,6 +56,7 @@ export function Render({imagem, nome}){
     const [CreateModal, setCreateModal] = useState(false)
     const [UpdateModal, setUpdateModal] = useState(false)
     const [DeleteModal, setDeleteModal] = useState(false)
+    const [SeeModalTreino, setSeeModalTreino] = useState(false)
     const [CreateModalTreino, setCreateModalTreino] = useState(false)
     const [UpdateModalTreino, setUpdateModalTreino] = useState(false)
     const [DeleteModalTreino, setDeleteModalTreino] = useState(false)
@@ -136,6 +138,7 @@ export function Render({imagem, nome}){
                         }}
                         OpenUpdate={() => setUpdateModal(true)}
                         OpenDelete={() => setDeleteModal(true)}
+                        OpenSeeTraining={() => setSeeModalTreino(true)}
                         setForm={setForm}
                         />
             case 2:
@@ -280,6 +283,12 @@ export function Render({imagem, nome}){
             Open={DeleteModalTreino}
             Close={() => setDeleteModalTreino(false)}
             Delete={DeletarTreino}
+            />
+            <SeeTraining 
+            Open={SeeModalTreino}
+            Close={() => setSeeModalTreino(false)} 
+            Alunos={alunos}
+            Treino={treino}
             />
             <SendTraining
             Open={SendModalTreino}
