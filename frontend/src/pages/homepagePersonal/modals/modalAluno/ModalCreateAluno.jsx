@@ -117,7 +117,7 @@ export function CreateAluno({ aluno, setAluno, Close, Open, form, setForm, Clean
 
     const FormFields = [
         { label: "Nome:", name: "name", type: "text", onChange: GetValuesForm, placeholder: "Ex. João Paulo ", value: name },
-        { label: "Email:", name: "email", type: "email", onChange: GetValuesForm, placeholder: "Ex. JoaoPaulo@gmail.com", value: email },
+        { label: "Email:", name: "email", type: "text", onChange: GetValuesForm, placeholder: "Ex. JoaoPaulo@gmail.com", value: email },
         { label: "Telefone:", name: "phone", type: "text", onChange: GetValuesForm, placeholder: "Ex. (88) 88888-8888 ", value: phone, maxlength: 15 },
         { label: "Senha:", name: "password", type: "password", onChange: GetValuesForm, value: password },
         { label: "Estado:", name: "state", type: "select", onChange: GetValuesForm, placeholder: "Ex. São Paulo", value: state },
@@ -177,7 +177,7 @@ export function CreateAluno({ aluno, setAluno, Close, Open, form, setForm, Clean
                                     placeholder={item.placeholder}
                                     type={item.label === 'Senha:' ? (visible ? "text" : "password") : item.type}
                                     onChange={item.onChange}
-                                    className="border-b-white border-b w-full text-white outline-none bg-[#131313] placeholder:font-albert placeholder:font-medium placeholder:text-[12px] placeholder:text-primary-200"
+                                    className="border-b-white border-b w-full text-white outline-none bg-[#131313] placeholder:font-albert placeholder:font-medium placeholder:text-[12px] placeholder:text-primary-200 appearance-none"
                                     maxLength={item.maxlength}
                                 />)}
 

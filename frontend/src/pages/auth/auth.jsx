@@ -50,20 +50,31 @@ export function Auth(){
         }
 
         setError(false)
-        // Colocando em uma const os dados, usei para teste, mas funciona
-        const Data = {email: email, password: password}
 
-        try {
-            const response = await axios.post('http://localhost:3333/login', Data)
-            if (response){
-                Navigate('/home/personal')
-            }
+        const Data = { email: email, password: password };
 
 
-    } catch(error){
-        console.log(error)
-    }}
-    
+    try {
+        const response = await axios.post('http://localhost:3333/login', Data, {
+          withCredentials: true,
+        });
+
+        const verificationRole = await axios.get('http://localhost:3333/me', { withCredentials: true})
+        const { data } = verificationRole
+        const { role } = data
+        role === 'PERSONAL' ? Navigate('/home/personal') : Navigate('/home/aluno')
+        
+      } catch (error) {
+        if (error.response) {
+          console.log('Erro na resposta:', error.response.data);
+        } else if (error.request) {
+          console.log('Erro ao fazer a requisição:', error.request);
+        } else {
+          console.log('Erro desconhecido:', error.message);
+        }
+      }
+    }      
+
 
     const form = [
         {

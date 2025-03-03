@@ -1,4 +1,5 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import axios from 'axios'
 import { ModalLogOut } from "./modals/LogOut"
 import { CreateAluno } from "./modals/modalAluno/ModalCreateAluno"
 import { UpdateAluno } from "./modals/modalAluno/ModalUpdateAluno"
@@ -52,7 +53,8 @@ const Buttons = [
 ]
 
 
-export function Render({imagem, nome}){
+export function Render({imagem}){
+    const [name, setName] = useState("")
     const [isHover, setIsHover] = useState(false)
     const [LogOutModal, setLogOutModal] = useState(false)
     const [CreateModal, setCreateModal] = useState(false)
@@ -188,17 +190,34 @@ export function Render({imagem, nome}){
         setDeleteModalExercise(false)
     }
 
-    
+    useEffect(() => {
+        userData();
+    }, []);
+
+    async function userData() {
+        try{
+            const response = await axios.get('http://localhost:3333/me', {
+                withCredentials: true,
+              });
+              const { data } = response;
+              setName(data.name)
+              console.log(name)
+        }catch(erro){
+            console.log(erro)
+        }
+
+    } 
+
     return (
         <div className="w-full h-full flex items-center bg-[#222222] overflow-hidden">
             <div className="bg-[#161616] flex flex-col w-[15%] h-full rounded-tr-lg rounded-br-lg space-y-6 relative">
                 <div className="px-2 py-1 flex justify-between items-center">
-                    <div className="flex items-center space-x-2">
+                    <div className="flex items-center space-x-2 pt-2">
                         <div className="w-8 h-8 rounded-full bg-white">
                             <img src={imagem} className="w-full aspect-square object-cover rounded-full"/>
                         </div>
                         <div className="flex flex-col">
-                            <h1 className="font-poppins font-normal text-[14px] text-white">{nome}</h1>
+                            <h1 className="font-poppins font-normal text-[13px] text-white">{name}</h1>
                             <h3 className="font-albert font-normal text-[12px] text-primary-200 text-left">Personal</h3>
                         </div>
                     </div>

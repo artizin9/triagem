@@ -6,21 +6,17 @@ import { registerRoutes } from "./routes/routes"; // Função para registrar as 
 import fastifyCors from "@fastify/cors"; // Importa o plugin CORS
 import fastifyCookie from 'fastify-cookie';
 
-
-
-
-
 dotenv.config();
 
 const app = Fastify();
 const prisma = new PrismaClient();
 
-// Registro do CORS com configuração personalizada (se necessário)
+// Registro do CORS com configuração personalizada
 app.register(fastifyCors, {
-  origin: "*", // Permite todas as origens. Alterar conforme necessário
+  origin: "http://localhost:5173", // Altere para a URL do seu frontend
   methods: ["GET", "POST", "PUT", "DELETE"], // Métodos permitidos
   allowedHeaders: ["Content-Type", "Authorization"], // Cabeçalhos permitidos
-  credentials: true, // Se for necessário enviar cookies ou outras credenciais
+  credentials: true, // Permite cookies
 });
 
 app.register(fastifyJwt, {
@@ -31,7 +27,6 @@ app.register(fastifyCookie);
 
 // Registra todas as rotas do `routes.ts`
 registerRoutes(app);
-
 
 app.get("/", async () => {
   return { message: "API funcionando! 🚀" };

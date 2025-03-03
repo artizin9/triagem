@@ -2,6 +2,7 @@ import { createBrowserRouter, Outlet } from 'react-router-dom';
 import { Landpage } from './pages/LandPage/index.jsx';
 import { Auth } from './pages/auth/auth.jsx';
 import { HomePagePersonal } from './pages/homepagePersonal/index.jsx';
+import { HomeAluno } from './pages/homepageAluno/index.jsx';
 
 export const routes = createBrowserRouter([{
     path: '/',
@@ -18,6 +19,10 @@ export const routes = createBrowserRouter([{
       {
         path: 'home/personal',
         element: <HomePagePersonal />
+      },
+      {
+        path: 'home/aluno',
+        element: <HomeAluno />
       }
     ]
 }])
