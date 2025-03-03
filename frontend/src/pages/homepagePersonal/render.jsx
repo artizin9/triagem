@@ -131,6 +131,8 @@ export function Render({imagem, nome}){
         photo: null
     })
 
+    console.log("Teste:", treino)
+
     const RenderComponent = () => {
         switch (id) {
             case 1:

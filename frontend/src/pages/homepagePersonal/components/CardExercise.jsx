@@ -22,7 +22,7 @@ export function CardExercise({ exercise, Delete, UpdateExercise, type }) {
                     <button
                         onClick={Delete}
                         className="w-full  whitespace-nowrap py-0.5 bg-primary-100 text-white font-poppins font-bold shadow-black/30 shadow-md duration-500 ease-in-out rounded-[3px] text-[14px]">
-                        Deletar exercise
+                        Deletar exercicio
                     </button>
                 </div>
             ) :
