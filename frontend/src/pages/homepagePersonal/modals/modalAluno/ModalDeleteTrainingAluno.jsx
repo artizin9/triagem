@@ -6,16 +6,16 @@ const ButtonClose = (<svg width="25" height="25" viewBox="0 0 22 22" fill="none"
     <path d="M5.75933 17.05L4.49951 15.7937L9.53877 10.7684L4.49951 5.74315L5.75933 4.48684L10.7986 9.51209L15.8379 4.48684L17.0977 5.74315L12.0584 10.7684L17.0977 15.7937L15.8379 17.05L10.7986 12.0247L5.75933 17.05Z" fill="currentColor"/>
     </svg>)
 
-export function DeleteTreino({Close, Open, Delete}){
+export function DeleteTrainingAluno({Close, Open, Delete}){
     return (
-        <div onClick={Close} className={`w-full h-full bg-black flex justify-center items-center bg-opacity-30 fixed insert-0 ${Open ? 'visible' : 'invisible'}`}>
+        <div onClick={Close} className={`w-full h-full bg-black flex justify-center items-center bg-opacity-30 fixed insert-0 z-50 ${Open ? 'visible' : 'invisible'}`}>
             <div 
             onClick={(e) => e.stopPropagation()}
             className={`bg-[#131313] flex flex-col items-center justify-center px-2 w-[30%] h-[55%] rounded-lg relative duration-300 ease-in-out ${Open ? 'scale-100 opacity-100' : 'scale-125 opacity-0'}`}>
                 {IconDelete}
                 <div className="flex flex-col w-full items-center justify-center pt-1 mt-3">
-                    <h1 className="font-poppins font-extrabold text-[20px] text-white">DELETAR TREINO</h1>
-                    <h2 className="font-albert font-medium text-[14px] text-primary-200">Você tem certeza que deseja deletar esse treino?</h2>
+                    <h1 className="font-poppins font-extrabold text-[20px] text-white">RETIRAR TREINO</h1>
+                    <h2 className="font-albert font-medium text-[14px] text-primary-200">Você tem certeza que deseja retirar esse treino?</h2>
                 </div>
                 <div className="w-full items-center h-1/5 flex justify-center pt-5">
                     <button onClick={Delete} className="flex items-center justify-center w-3/5 py-1 font-poppins font-semibold text-white bg-primary-100 text-[18px] rounded-lg ">Deletar</button>

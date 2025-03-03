@@ -3,13 +3,13 @@ export function CardExercise({ exercise, Delete, UpdateExercise, type }) {
     const photo = exercise?.photo
 
     return (
-        <div className="bg-[#1b1b1b] w-[90%] h-[50%] flex flex-col relative items-center rounded-lg p-2 shadow-md shadow-black/50 justify-between min-h-[250px] mx-auto">
+        <div className={`bg-[#1b1b1b] w-[90%] h-[50%] flex flex-col relative items-center rounded-lg p-2 shadow-md shadow-black/50 justify-between mx-auto ${type === "read" ? "min-h-[250px]" : "max-h-[170px]"}`}>
             <div className="flex flex-col items-center justify-center w-[60%]">
                 <div className="w-full aspect-square rounded-full bg-primary-400 space-y-1">
                     <img src={photo} className="w-full h-full object-cover rounded-full" />
                 </div>
                 <h1 className="font-poppins font-medium text-[14px] text-white mt-1">{exercise?.name}</h1>
-                <h1 className="font-albert font-regular text-[12px] text-primary-200">Para {exercise?.execByRep}</h1>
+                <h1 className="font-albert font-regular text-[12px] text-primary-200">{exercise?.execByRep}</h1>
             </div>
             {type === "read" ? (
                 <div className="w-[95%] items-center p-1 justify-center space-y-3">

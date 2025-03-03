@@ -15,7 +15,7 @@ export function DeleteAluno({Close, Open, Delete}){
                 {IconDelete}
                 <div className="flex flex-col w-full items-center justify-center pt-1 mt-3">
                     <h1 className="font-poppins font-extrabold text-[20px] text-white">DELETAR ALUNO</h1>
-                    <h2 className="font-albert font-medium text-[14px] text-primary-200">Você tem certeza que quer deletar esse aluno?</h2>
+                    <h2 className="font-albert font-medium text-[14px] text-primary-200">Você tem certeza que deseja deletar esse aluno?</h2>
                 </div>
                 <div className="w-full items-center h-1/5 flex justify-center pt-5">
                     <button onClick={Delete} className="flex items-center justify-center w-3/5 py-1 font-poppins font-semibold text-white bg-primary-100 text-[18px] rounded-lg ">Deletar</button>

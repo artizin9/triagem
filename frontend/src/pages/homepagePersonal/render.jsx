@@ -4,6 +4,8 @@ import { CreateAluno } from "./modals/modalAluno/ModalCreateAluno"
 import { UpdateAluno } from "./modals/modalAluno/ModalUpdateAluno"
 import { DeleteAluno } from "./modals/modalAluno/ModalDeleteAluno"
 import { SeeTraining } from "./modals/modalAluno/ModalSeeTraining"
+import { DeleteTrainingAluno } from "./modals/modalAluno/ModalDeleteTrainingAluno"
+import { SeeExercise } from "./modals/modalAluno/ModalSeeExercise"
 import { CreateTreino } from "./modals/modalTreino/ModalCreateTreino"
 import { UpdateTreino } from "./modals/modalTreino/ModalUpdateTreino"
 import { DeleteTreino } from "./modals/modalTreino/ModalDeleteTreino"
@@ -57,6 +59,8 @@ export function Render({imagem, nome}){
     const [UpdateModal, setUpdateModal] = useState(false)
     const [DeleteModal, setDeleteModal] = useState(false)
     const [SeeModalTreino, setSeeModalTreino] = useState(false)
+    const [RetirarTreinoModal, setRetirarTreinoModal] = useState(false)
+    const [SeeExerciseModal, setSeeExerciseModal] = useState(false)
     const [CreateModalTreino, setCreateModalTreino] = useState(false)
     const [UpdateModalTreino, setUpdateModalTreino] = useState(false)
     const [DeleteModalTreino, setDeleteModalTreino] = useState(false)
@@ -261,6 +265,10 @@ export function Render({imagem, nome}){
             Close={() => setDeleteModal(false)}
             Delete={DeletarAluno}
             />
+            <DeleteTrainingAluno
+            Open={RetirarTreinoModal}
+            Close={() => setRetirarTreinoModal(false)}
+            />
             <CreateTreino 
             Open={CreateModalTreino}
             Close={() => setCreateModalTreino(false)}
@@ -289,6 +297,22 @@ export function Render({imagem, nome}){
             Close={() => setSeeModalTreino(false)} 
             Alunos={alunos}
             Treino={treino}
+            WithDraw={() => {setRetirarTreinoModal(true)}}
+            SeeExercise={() => {
+                setSeeModalTreino(false)
+                setSeeExerciseModal(true)
+            }}
+            />
+            <SeeExercise
+            Open={SeeExerciseModal}
+            Back={() => {
+                setSeeExerciseModal(false)
+                setSeeModalTreino(true)
+            }}
+            Treinos={treino}
+            setFormExercise={setFormExercise}
+            form={form}
+            setFormTreino={setFormTreino}
             />
             <SendTraining
             Open={SendModalTreino}
