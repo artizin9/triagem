@@ -18,7 +18,7 @@ export function SendTraining({Open, Close, Next, Alunos, setAlunos, Treino, setT
                     <h1 className="font-albert font-normal text-[16px] text-white">Envie o treino para seus alunos</h1>
                 </div>
 
-                <div className="w-4/5 grid grid-cols-3 gap-4 pt-4 h-full overflow-y-auto ml-4">
+                <div className="w-4/5 grid grid-cols-3 gap-4 pt-4 h-full overflow-y-auto overflow-x-hidden ml-4">
                     {Alunos.map((aluno) => {
                         return (
                             <CardAluno 

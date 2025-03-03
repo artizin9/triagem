@@ -2,6 +2,8 @@ import ImgLogin from '../../assets/imgs/login.png'
 import { useNavigate } from 'react-router-dom'
 import { useState, useRef, useEffect } from 'react'
 import gsap from 'gsap'
+import axios from 'axios'
+
 
 const ToBack = (<svg width="20" height="15" className="rotate-180" viewBox="0 0 22 17" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
     <path fill-rule="evenodd" clip-rule="evenodd" d="M9 2.00353C9 0.375799 10.8407 -0.570208 12.1642 0.377318L20.7285 6.50858C21.8428 7.30637 21.8428 8.96322 20.7285 9.76101L12.1924 15.8721C10.8723 16.8171 9.03572 15.8786 9.02823 14.2551L9.01096 10.5109C9.01093 10.5049 9.00603 10.5 9 10.5H2.25C1.00736 10.5 0 9.49264 0 8.25C0 7.00736 1.00736 6 2.25 6H7C8.10457 6 9 5.10457 9 4V2.00353Z" fill="currentColor" />
@@ -41,7 +43,7 @@ export function Auth(){
         return true
     }
 
-    const Sendvalues = () => {
+     const  Sendvalues = async () => {
         if (!Verification()){
             setError(true)
             return
@@ -50,7 +52,18 @@ export function Auth(){
         setError(false)
         // Colocando em uma const os dados, usei para teste, mas funciona
         const Data = {email: email, password: password}
-    }
+
+        try {
+            const response = await axios.post('http://localhost:3333/login', Data)
+            if (response){
+                Navigate('/home/personal')
+            }
+
+
+    } catch(error){
+        console.log(error)
+    }}
+    
 
     const form = [
         {
