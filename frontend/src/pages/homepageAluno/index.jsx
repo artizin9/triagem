@@ -1,18 +1,38 @@
-export function HomeAluno() {
-    const pessoas = [
-      { nome: "Claudio", idade: 17 },
-      { nome: "Maria", idade: 22 },
-      { nome: "João", idade: 30 },
-      { nome: "Ana", idade: 25 },
-      { nome: "Carlos", idade: 28 }
-    ];
-  
+import { Home } from "./main"
+import { useState } from "react"
+import { ModalLogOut } from "./modals/logOut"
+import { SeeExercise } from "./modals/SeeExerciseModal"
+import { InfoExercise } from "./modals/InfoExercise"
+
+export function HomeAluno(){
+    const [TreinoAluno, setTreinoAluno] = useState([])
+    const [LogOutModal, setLogOutModal] = useState(false)
+    const [SeeExerciseModal, setSeeExerciseModal] = useState(false)
+    const [InfoExerciseModal, setInfoExerciseModal] = useState(false)
+    
     return (
-      <>
-        <div>
-          <pre>{JSON.stringify(pessoas, null, 2)}</pre>
-        </div>
-      </>
-    );
-  }
-  
+    <div className="h-screen w-screen relative">
+        <Home 
+        OpenModalLogOut={() => setLogOutModal(true)} 
+        OpenModalSeeExercise={() => setSeeExerciseModal(true)}
+        TreinoAluno={TreinoAluno}
+        setTreinoAluno={setTreinoAluno}
+        />
+        <ModalLogOut
+                Open={LogOutModal}
+                Close={() => setLogOutModal(false)}
+            />
+        <SeeExercise
+            Open={SeeExerciseModal}
+            Close={() => setSeeExerciseModal(false)}
+            TreinoAluno={TreinoAluno}
+            OpenModalExercise={() => setInfoExerciseModal(true)}
+        />
+        <InfoExercise
+            Open={InfoExerciseModal}
+            Close={() => setInfoExerciseModal(false)}
+            TreinoAluno={TreinoAluno}
+        />
+    </div>
+    )
+}

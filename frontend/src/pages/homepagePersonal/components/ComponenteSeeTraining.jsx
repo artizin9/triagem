@@ -1,16 +1,14 @@
 import { CardTreino } from "./CardTreino"
 
-export function Component1({Alunos,WithDraw, SeeExercise}){
+export function Component1({ Alunos, WithDraw, SeeExercise }) {
     return (
         <>
-        
-                                    <CardTreino
-                                        
-                                        WithDraw={WithDraw}
-                                        SeeExercise={SeeExercise}
-                                        type=""
-                                    />
-                                
+            <CardTreino
+                WithDraw={WithDraw}
+                SeeExercise={SeeExercise}
+                type=""
+            />
+
         </>
     )
 }

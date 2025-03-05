@@ -83,10 +83,10 @@ export function FQA() {
                 <h2 className="font-albert font-medium text-[18px] mb-14 text-primary-200">Veja algumas perguntas frequentes</h2>
             </div>
 
-            <div className="w-[95%] flex items-center">
-                <img className="w-1/2 h-[80%]" src={fqa} />
+            <div className="w-[95%] flex items-center space-x-6">
+                <img className="w-1/2 h-[70%]" src={fqa} />
 
-                <div className="flex flex-col space-x-2 w-1/2 space-y-6">
+                <div className="flex flex-col w-1/2 space-y-9">
                     {asks.map((item, index) => (
                         <div
                         key={index}
