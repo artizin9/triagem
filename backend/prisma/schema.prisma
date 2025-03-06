@@ -13,12 +13,54 @@ enum Role {
 }
 
 model User {
-  id       String @id @default(cuid())  
+  id       String      @id @default(cuid())  
   name     String
-  email    String @unique
+  email    String      @unique
   password String
-  role     Role @default(CLIENTE)
+  telefone String      @default("")   // Valor padrão
+  cidade   String      @default("")   // Valor padrão
+  estado   String      @default("")   // Valor padrão
+  role     Role        @default(CLIENTE)
+  treinos  Training[]  @relation("UserTrainings") // Relacionamento com Treino (muitos para muitos)
+  logs     TrainingLog[] // Log de treinos realizados
+  photo    String?     // Foto do usuário (campo opcional)
 }
 
 
+model Training {
+  id            String      @id @default(cuid())
+  nome          String
+  nivel         String
+  tempoConclusao String
+  diasDaSemana  String
+  usuarios      User[]      @relation("UserTrainings") // Relacionamento com User (muitos para muitos)
+  exercicios    Exercise[]  // Relacionamento com Exercício
+  logs          TrainingLog[] // Relacionamento com os logs de treino
+  foto          String?     // Foto do treino (campo opcional)
+}
 
+
+model Exercise {
+  id               String   @id @default(cuid())
+  nome             String
+  numExecucoes     Int
+  numRepeticoes    Int
+  execucoesRepeticao Int
+  intervalo        Int
+  descricao        String
+  fotoExercicio    String  // Foto do exercício (campo obrigatório)
+  treinoId         String
+  treino           Training @relation(fields: [treinoId], references: [id])  // Relacionamento com Training
+}
+
+
+model TrainingLog {
+  id            String   @id @default(cuid())  // Identificador único do log
+  userId        String  // Referência ao usuário que realizou o treino
+  trainingId    String  // Referência ao treino que foi realizado
+  dataRealizacao DateTime  // Data em que o treino foi realizado
+  status        String  // Status do treino (concluído, não concluído, etc.)
+
+  user          User    @relation(fields: [userId], references: [id])  // Relacionamento com User
+  training      Training @relation(fields: [trainingId], references: [id])  // Relacionamento com Training
+}

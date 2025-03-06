@@ -5,11 +5,16 @@ import dotenv from "dotenv";
 import { registerRoutes } from "./routes/routes"; // Função para registrar as rotas
 import fastifyCors from "@fastify/cors"; // Importa o plugin CORS
 import fastifyCookie from 'fastify-cookie';
-
 dotenv.config();
+import multipart from '@fastify/multipart';
+
+
+
+
 
 const app = Fastify();
 const prisma = new PrismaClient();
+
 
 // Registro do CORS com configuração personalizada
 app.register(fastifyCors, {
@@ -19,6 +24,7 @@ app.register(fastifyCors, {
   credentials: true, // Permite cookies
 });
 
+app.register(multipart);
 app.register(fastifyJwt, {
   secret: process.env.JWT_SECRET || "fallback_secret",
 });
