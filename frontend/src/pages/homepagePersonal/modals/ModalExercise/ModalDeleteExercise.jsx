@@ -8,7 +8,7 @@ const ButtonClose = (<svg width="25" height="25" viewBox="0 0 22 22" fill="none"
 
 export function DeleteExercise({Close, Open, Delete}){
     return (
-        <div onClick={Close} className={`w-full h-full bg-black flex justify-center items-center bg-opacity-30 fixed insert-0 ${Open ? 'visible' : 'invisible'}`}>
+        <div onClick={Close} className={`w-full h-full bg-black flex justify-center items-center bg-opacity-30 fixed insert-0  ${Open ? 'visible' : 'invisible'}`}>
             <div 
             onClick={(e) => e.stopPropagation()}
             className={`bg-[#131313] flex flex-col items-center justify-center px-2 w-[30%] h-[55%] rounded-lg relative duration-300 ease-in-out ${Open ? 'scale-100 opacity-100' : 'scale-125 opacity-0'}`}>

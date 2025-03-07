@@ -6,7 +6,7 @@ const iconDelete = (<svg width="22" height="22" viewBox="0 0 16 16" fill="none" 
     </svg>
     )
 
-export function CardTreino({treino, Delete, UpdateInfo, CreateExercise, type, SendTraining, WithDraw, SeeExercise}){
+export function CardTreino({treino, Delete, UpdateInfo, SeeTraining, type, SendTraining, WithDraw, SeeExercise}){
 
     const photo = treino?.photo ? treino?.photo : noPhoto
 
@@ -27,9 +27,9 @@ export function CardTreino({treino, Delete, UpdateInfo, CreateExercise, type, Se
                 {type === "treino" ? (
                     <div className="w-[95%] items-center p-1 justify-center space-y-3">
                     <button
-                    onClick={CreateExercise} 
+                    onClick={SeeTraining} 
                     className="w-full whitespace-nowrap py-0.5 bg-white text-black font-poppins font-bold shadow-black/30 shadow-md duration-500 ease-in-out hover:bg-primary-100/80 hover:text-white rounded-[3px] text-[14px]">
-                        Adicionar exercicio
+                            Visualizar treino
                     </button>
 
                     <button 

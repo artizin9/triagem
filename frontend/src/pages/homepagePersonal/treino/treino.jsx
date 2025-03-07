@@ -12,7 +12,7 @@ const addTreino = (<svg width="24" height="24" viewBox="0 0 24 24" className="ab
     <rect x="18.5" y="3.5" width="2" height="7" fill="white"/>
     </svg>)
 
-export function Treino({ treino, setFormTreino, OpenCreateTraining, OpenCreateExercise, OpenDeleteTraining, OpenUpdateTraining, OpenSendTraining}) {
+export function Treino({ treino, setFormTreino, OpenCreateTraining, OpenSeeTraining, OpenDeleteTraining, OpenUpdateTraining, OpenSendTraining}) {
 
     const [seta, setSeta] = useState(false)
     const [searchQuery, setSearchQuery] = useState("");
@@ -81,16 +81,16 @@ export function Treino({ treino, setFormTreino, OpenCreateTraining, OpenCreateEx
                 </div>
 
             </div>
-            <div className="w-[73%] h-full mt-8 overflow-auto overflow-x-hidden grid grid-cols-3 gap-4">
+            <div className="w-[73%] h-full mt-8 overflow-auto overflow-x-hidden grid grid-cols-3 gap-4 relative">
             {filteredAlunos.map((treino) => (
                     <CardTreino
                         UpdateInfo={() => {
                             setFormTreino(treino)
                             OpenUpdateTraining()
                         }}
-                        CreateExercise={() => {
+                        SeeTraining={() => {
                             setFormTreino(treino)
-                            OpenCreateExercise()
+                            OpenSeeTraining()
                         }}
                         treino={treino}
                         Delete={() => {

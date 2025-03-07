@@ -159,7 +159,7 @@ export function Render({imagem}){
                         OpenUpdateTraining={() => setUpdateModalTreino(true)}
                         OpenDeleteTraining={() => setDeleteModalTreino(true)}
                         OpenSendTraining={() => setSendModalTreino(true)}
-                        OpenCreateExercise={() => setCreateModalExercise(true)}
+                        OpenSeeTraining={() => setReadModalExercise(true)}
                         setFormTreino={setFormTreino}
                        />
         }
@@ -369,6 +369,7 @@ export function Render({imagem}){
                 setReadModalExercise(false)
                 setCreateModalExercise(true)
             }}
+            Close={() => setReadModalExercise(false)}
             Open={ReadModalExercise}
             Treinos={treino}
             form={formTreino}
