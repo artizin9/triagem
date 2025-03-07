@@ -208,6 +208,8 @@ export function Render({imagem}){
 
     } 
 
+    console.log("Rol:", treino)
+
     return (
         <div className="w-full h-full flex items-center bg-[#222222] overflow-hidden">
             <div className="bg-[#161616] flex flex-col w-[15%] h-full rounded-tr-lg rounded-br-lg space-y-6 relative">
