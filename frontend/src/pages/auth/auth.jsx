@@ -151,7 +151,7 @@ export function Auth(){
             </div>
         </div>
 
-        <img src={ImgLogin} className='absolute right-0 h-full w-3/5'/>
+        <div style={{backgroundImage: `url(${ImgLogin})`, backgroundSize: "cover", backgroundRepeat: "no-repeat",}} className='w-[55%] h-full'/>
     </div>
 )
 }

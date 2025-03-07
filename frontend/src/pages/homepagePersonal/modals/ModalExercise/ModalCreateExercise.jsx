@@ -14,6 +14,7 @@ export function CreateExercise({ Treino, setTreino, Close, Open, formExercise, s
     const [messageRight, setMessageRight] = useState(false)
     const [error, setError] = useState(false)
     const [messageClean, setMessageClean] = useState(false)
+    const [messageSee, setMessageSee] = useState(false)
     const { photo, name, numberExec, numberRep, execByRep, interval, description} = formExercise
     const { id } = formTreino
 
@@ -88,10 +89,11 @@ export function CreateExercise({ Treino, setTreino, Close, Open, formExercise, s
         { label: "Descrição:", name: "description", type: "select", onChange: GetValuesForm, placeholder: "Ex. Você deve agachar...", value: description }
     ]
 
-    useEffect(() => {}, [Treino, id])
+    useEffect(() => {}, [Treino, id])       
+    console.log(Treino)
 
     return (
-        <div onClick={Close} className={`w-full h-full bg-black flex justify-center items-center bg-opacity-30 fixed insert-0 ${Open ? 'visible' : 'invisible'}`}>
+        <div className={`w-full h-full bg-black flex justify-center items-center bg-opacity-30 fixed insert-0 ${Open ? 'visible' : 'invisible'}`}>
             <div
                 onClick={(e) => e.stopPropagation()}
                 className={`h-[90%] w-3/5 flex flex-col items-center relative rounded-lg shadow-md shadow-black/60 bg-[#131313] pt-1 duration-300 ease-in-out ${Open ? 'scale-100 opacity-100' : 'scale-110 opacity-0'}`}>
@@ -132,26 +134,25 @@ export function CreateExercise({ Treino, setTreino, Close, Open, formExercise, s
                         onClick={CreateExercise}
                         className=" flex items-center justify-center mt-5 w-[30%] py-1 font-poppins font-extrabold text-white bg-primary-100 shadow-md shadow-black/50  rounded-lg">Cadrastrar Exercicio</button>
                 </div>
-
-                <button onClick={Close} className="absolute w-fit h-fit top-2 left-1 hover:text-primary-100 text-white duration-500">
-                    <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M5.75933 17.05L4.49951 15.7937L9.53877 10.7684L4.49951 5.74315L5.75933 4.48684L10.7986 9.51209L15.8379 4.48684L17.0977 5.74315L12.0584 10.7684L17.0977 15.7937L15.8379 17.05L10.7986 12.0247L5.75933 17.05Z" fill="currentColor" />
-                    </svg>
-                </button>
-
                 <button
                     onMouseEnter={() => setMessageClean(true)}
                     onMouseLeave={() => setMessageClean(false)}
-                    onClick={CleanFormExercise} className="absolute w-fit h-fit top-2.5 right-10 hover:text-primary-100 text-white duration-500">
+                    onClick={CleanFormExercise} className="absolute w-fit h-fit top-2.5 left-1 hover:text-primary-100 text-white duration-500">
                     {Clean}
                 </button>
                 <button
+                    onMouseEnter={() => setMessageSee(true)}
+                    onMouseLeave={() => setMessageSee(false)}
                     onClick={ReadExercise} className="absolute w-fit h-fit top-3 right-1 hover:text-primary-100 text-white duration-500">
                     {seeExercise}
                 </button>
                 <div
-                    className={`bg-primary-100/80 absolute top-10 right-10 text-white font-albert font-medium px-1 py-1 rounded-md duration-500 ease-in-out ${messageClean ? "opacity-100" : "opacity-0"}`}>
+                    className={`bg-primary-100/80 absolute top-10 left-1 text-white font-albert font-medium px-1 py-1 rounded-md duration-500 ease-in-out ${messageClean ? "opacity-100" : "opacity-0"}`}>
                     Limpar tudo
+                </div>
+                <div
+                    className={`bg-primary-100/80 absolute top-10 right-0 text-white font-albert font-medium px-1 py-1 rounded-md duration-500 ease-in-out ${messageSee ? "opacity-100" : "opacity-0"}`}>
+                    Visualizar treino
                 </div>
             </div>
         </div>
