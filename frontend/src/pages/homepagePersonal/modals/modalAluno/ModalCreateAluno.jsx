@@ -110,7 +110,7 @@ export function CreateAluno({ aluno, setAluno, Close, Open, form, setForm, Clean
         setMessageRight(true)
         setTimeout(() => {
             setMessageRight(false)
-        }, [2000])
+        }, 4000)
     }
 
     // O backend deve colocar a api da cidade e estado, boa sorte nisso

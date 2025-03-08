@@ -78,7 +78,7 @@ export function CreateTreino({ treino, setTreino, Close, Open, formTreino, setfo
         setMessageRight(true)
         setTimeout(() => {
             setMessageRight(false)
-        }, [2000])
+        }, 4000)
     }
 
     // O backend deve colocar a api da cidade e estado, boa sorte nisso

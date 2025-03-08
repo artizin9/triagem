@@ -77,7 +77,7 @@ export function CreateExercise({ Treino, setTreino, Close, Open, formExercise, s
         setMessageRight(true)
         setTimeout(() => {
             setMessageRight(false)
-        }, [2000])
+        }, 4000)
     }
 
     const FormFields = [
