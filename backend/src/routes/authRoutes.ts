@@ -44,6 +44,7 @@ export async function authRoutes(app: FastifyInstance) {
     return reply.send({ message: "Login bem-sucedido!" });
   });
 
+  
   // Rota de logout
   app.post("/logout", async (request, reply) => {
     // Remove o token do cookie
