@@ -209,6 +209,7 @@ export function Render({imagem}){
     } 
 
     console.log("Rol:", treino)
+    console.log("Ops: ", formExercise)
 
     return (
         <div className="w-full h-full flex items-center bg-[#222222] overflow-hidden">
@@ -359,7 +360,7 @@ export function Render({imagem}){
             formTreino = {formTreino}
             CleanFormExercise={CleanExercise}
             ReadExercise={() => {
-                setFormTreino(treino)
+                // FormTreino(treino)
                 setFormExercise(treino?.exercise || {})
                 setCreateModalExercise(false)
                 setReadModalExercise(true)

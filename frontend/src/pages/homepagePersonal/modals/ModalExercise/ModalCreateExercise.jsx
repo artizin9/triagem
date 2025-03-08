@@ -80,17 +80,18 @@ export function CreateExercise({ Treino, setTreino, Close, Open, formExercise, s
         }, [2000])
     }
 
+    console.log(id)
+
     const FormFields = [
         { label: "Nome:", name: "name", type: "text", onChange: GetValuesForm, placeholder: "Ex. Agachamento ", value: name },
-        { label: "Numero de exercuções:", name: "numberExec", type: "text", onChange: GetValuesForm, placeholder: "Ex. 3 exercuções", value: numberExec },
-        { label: "Numero de repertições:", name: "numberRep", type: "text", onChange: GetValuesForm, placeholder: "Ex. 12 repertições ", value: numberRep },
-        { label: "Exercuções por repertições", name: "execByRep", type: "text", onChange: GetValuesForm, value: execByRep, placeholder: "Ex. 3x12 " },
+        { label: "Numero de execuções:", name: "numberExec", type: "text", onChange: GetValuesForm, placeholder: "Ex. 3 exercuções", value: numberExec },
+        { label: "Numero de repetições:", name: "numberRep", type: "text", onChange: GetValuesForm, placeholder: "Ex. 12 repertições ", value: numberRep },
+        { label: "Execuções por repetições", name: "execByRep", type: "text", onChange: GetValuesForm, value: execByRep, placeholder: "Ex. 3x12 " },
         { label: "Intervalo:", name: "interval", type: "text", onChange: GetValuesForm, placeholder: "Ex. 30 segundos", value: interval },
         { label: "Descrição:", name: "description", type: "select", onChange: GetValuesForm, placeholder: "Ex. Você deve agachar...", value: description }
     ]
 
     useEffect(() => {}, [Treino, id])       
-    console.log(Treino)
 
     return (
         <div className={`w-full h-full bg-black flex justify-center items-center bg-opacity-30 fixed insert-0 ${Open ? 'visible' : 'invisible'}`}>

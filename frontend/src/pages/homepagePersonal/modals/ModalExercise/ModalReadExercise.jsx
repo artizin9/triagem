@@ -20,7 +20,7 @@ export function ReadExercise({Open, Back, UpdateExercise, DeleteExercise, Treino
     useEffect(() => {}, [Treinos])
 
     return (
-        <div onClick={Close} className={`w-full h-full bg-black flex justify-center items-center bg-opacity-30 fixed insert-0 z-30 ${Open ? 'visible' : 'invisible'}`}>
+        <div onClick={Close} className={`w-full h-full bg-black flex justify-center items-center bg-opacity-30 fixed insert-0 ${Open ? 'visible' : 'invisible'}`}>
             <div
                 onClick={(e) => e.stopPropagation()}
                 className={`h-[90%] w-3/5 flex   relative rounded-lg shadow-md shadow-black/60 bg-[#131313] pt-1 duration-300 ease-in-out ${Open ? 'scale-100 opacity-100' : 'scale-110 opacity-0 '}`}>

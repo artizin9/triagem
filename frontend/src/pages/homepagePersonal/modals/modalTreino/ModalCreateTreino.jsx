@@ -65,7 +65,7 @@ export function CreateTreino({ treino, setTreino, Close, Open, formTreino, setfo
         return true
     }
 
-
+    // o back so precisdaa fazer a requisição aq abaixo fe tudo
     function Createtreino() {
         if (!Verification()) {
             setError(true)
@@ -79,6 +79,9 @@ export function CreateTreino({ treino, setTreino, Close, Open, formTreino, setfo
         setTimeout(() => {
             setMessageRight(false)
         }, [2000])
+
+        
+
     }
 
     // O backend deve colocar a api da cidade e estado, boa sorte nisso
