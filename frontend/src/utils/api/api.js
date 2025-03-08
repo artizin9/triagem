@@ -14,3 +14,8 @@ export async function me(){
     const response = await api.get('/me')
     return response.data
 }
+
+export async function userData(){
+    const response = await api.get('/me')
+    return response.data
+}

@@ -15,3 +15,7 @@ export function MessageError(error){
     }
 
 }
+
+export function Error(error){
+   return console.log(error)
+}

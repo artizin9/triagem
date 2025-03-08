@@ -94,7 +94,7 @@ export function Auth() {
     return (
         <div className="flex w-screen h-screen overflow-hidden">
             <div className='bg-primary-300 w-[45%] h-full flex items-center justify-center relative z-10'>
-                <button onClick={() => Navigate("/")} className='flex w-fit h-fit absolute space-x-2 items-center text-white hover:text-primary-100 top-2 left-2 font-albert font-medium duration-500'>
+                <button  onClick={() => Navigate("/")} className='flex w-fit h-fit absolute space-x-2 items-center text-white hover:text-primary-100 top-2 left-2 font-albert font-medium duration-500'>
                     {ToBack}
                     <h2 className='translate-y-0.5'>Voltar</h2>
                 </button>

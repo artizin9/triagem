@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react"
-import axios from 'axios'
+import { userData } from "../../utils/api/api"
+import { Error } from "../../utils/error/errorAuth"
 import { ModalLogOut } from "./modals/LogOut"
 import { CreateAluno } from "./modals/modalAluno/ModalCreateAluno"
 import { UpdateAluno } from "./modals/modalAluno/ModalUpdateAluno"
@@ -191,19 +192,15 @@ export function Render({imagem}){
     }
 
     useEffect(() => {
-        userData();
+        UserData();
     }, []);
 
-    async function userData() {
-        try{
-            const response = await axios.get('http://localhost:3333/me', {
-                withCredentials: true,
-              });
-              const { data } = response;
-              setName(data.name)
-              console.log(name)
+    async function UserData() {
+        try {
+            const { name } = await userData()
+            setName(name)
         }catch(erro){
-            console.log(erro)
+            Error(erro)
         }
 
     } 

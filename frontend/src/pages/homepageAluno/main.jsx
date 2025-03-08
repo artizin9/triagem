@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
-import axios from 'axios'
 import { CardTreinoAluno } from './components/cardTreino'
+import { userData } from '../../utils/api/api'
+import { Error } from '../../utils/error/errorAuth'
 
 const IconLogOut = (<svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path d="M4.77778 20C4.28889 20 3.87037 19.8259 3.52222 19.4778C3.17407 19.1296 3 18.7111 3 18.2222V5.77778C3 5.28889 3.17407 4.87037 3.52222 4.52222C3.87037 4.17407 4.28889 4 4.77778 4H11V5.77778H4.77778V18.2222H11V20H4.77778ZM14.5556 16.4444L13.3333 15.1556L15.6 12.8889H8.33333V11.1111H15.6L13.3333 8.84444L14.5556 7.55556L19 12L14.5556 16.4444Z" fill="currentColor" />
@@ -42,21 +43,19 @@ export function Home({OpenModalLogOut, OpenModalSeeExercise, TreinoAluno, setTre
     </svg>
     )
 
-    const userData = async () => {
+    const userDatas = async () => {
         try {
-            const response = await axios.get('http://localhost:3333/me',
-            { withCredentials: true, })
-            const { data } = response
-            setName(data.name)
-            setImg(data.img)
+            const { name, photo } = await userData()
+            setName(name)
+            setImg(photo)
         }
         catch (error) {
-            console.log(error)
+            Error(error)
         }
     }
 
     useEffect(() => {
-        userData()
+        userDatas()
     }, [])
 
 
