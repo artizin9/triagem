@@ -65,7 +65,7 @@ export function CreateTreino({ treino, setTreino, Close, Open, formTreino, setfo
         return true
     }
 
-
+    // o back so precisdaa fazer a requisição aq abaixo fe tudo
     function Createtreino() {
         if (!Verification()) {
             setError(true)

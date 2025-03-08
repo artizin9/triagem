@@ -12,8 +12,9 @@ export function UpdateExercise({ Treino, setTreino, Close, Open, formExercise, s
     const [messageRight, setMessageRight] = useState(false)
     const [error, setError] = useState(false)
     const [messageClean, setMessageClean] = useState(false)
-    const {photo, name, numberExec, numberRep, execByRep, interval, description} = formExercise
+
     const { id } = formTreino
+    const { photo, name, numberExec, numberRep, execByRep, interval, description } = formExercise || {}
 
     function GetValuesForm(e) {
         const { name, value } = e.target
@@ -39,7 +40,7 @@ export function UpdateExercise({ Treino, setTreino, Close, Open, formExercise, s
         setError(false)
         setMessageError('')
 
-        const isFieldsNotEmpty = name.trim() && numberExec.trim() && numberRep.trim() && execByRep.trim() && description.trim() && interval.trim()
+        const isFieldsNotEmpty = name?.trim() && numberExec?.trim() && numberRep?.trim() && execByRep?.trim() && description?.trim() && interval?.trim()
 
         if (!isFieldsNotEmpty) {
             setMessageError("Erro! Não deixe nenhum campo vazio")
@@ -50,35 +51,32 @@ export function UpdateExercise({ Treino, setTreino, Close, Open, formExercise, s
         return true
     }
 
+    function UpdateExercise() {
+        if (!Verification()) {
+            setError(true)
+            return
+        }
 
-
-        function UpdateExercise() {
-            if (!Verification()) {
-                setError(true)
-                return
-            }
-
-            setTreino((treinos) => {
-                return treinos.map((treino) => {
-                  if (treino.id === id) {
+        setTreino((treinos) => {
+            return treinos.map((treino) => {
+                if (treino.id === id) {
                     return {
-                      ...treino,
-                      exercise: treino.exercise.map((exercise) => {
-                        return exercise.id === formExercise.id ? { ...exercise, ...formExercise } : exercise
-                        },
-                      ),
+                        ...treino,
+                        exercise: treino.exercise.map((exercise) => {
+                            return exercise.id === formExercise.id ? { ...exercise, ...formExercise } : exercise
+                        }),
                     };
-                  }
-                  return treino
-                })
-              })
-              
-            setError(false)
-            setMessageRight(true)
-            setTimeout(() => {
-                setMessageRight(false)
-            }, 2000)
-        }  
+                }
+                return treino
+            })
+        })
+
+        setError(false)
+        setMessageRight(true)
+        setTimeout(() => {
+            setMessageRight(false)
+        }, 2000)
+    }
 
     const FormFields = [
         { label: "Nome:", name: "name", type: "text", onChange: GetValuesForm, placeholder: "Ex. Agachamento ", value: name },

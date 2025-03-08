@@ -1,10 +1,8 @@
-import 'fastify';
-import { MultipartFile } from '@fastify/multipart';
+import { FastifyInstance } from 'fastify';
+import fastifyMultipart from '@fastify/multipart';
 
 declare module 'fastify' {
-  interface FastifyRequest {
-    file?: MultipartFile; // Agora representa corretamente um único arquivo
-    files?: MultipartFile[]; // Para múltiplos arquivos
-    isMultipart: () => boolean;
-  }a
+  interface FastifyInstance {
+    multipart: typeof fastifyMultipart;
+  }
 }
