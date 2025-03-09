@@ -60,6 +60,7 @@ export function Auth() {
         }
 
         catch (error) {
+            setError(true)
             const errorMessage = MessageError(error)
             console.log(errorMessage.message)
         }

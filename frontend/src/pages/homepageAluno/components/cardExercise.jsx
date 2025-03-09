@@ -11,7 +11,7 @@ export function CardExercise({Exercise, OpenModalExercise}){
     const photo = Exercise?.photo ? Exercise?.photo : noPhoto
 
     return (
-        <div className={`bg-primary-400 w-[90%] h-[60%] flex flex-col relative items-center rounded-lg p-2 shadow-md shadow-black/40 justify-between max-h-[250px] min-h-[250px]`}>
+        <div className={`bg-[#222222] w-[90%] h-[60%] flex flex-col relative items-center rounded-lg p-2 shadow-md shadow-white/20 justify-between max-h-[250px] min-h-[250px]`}>
             <div className="flex flex-col items-center justify-center w-[60%]"> 
                 <div className="w-full aspect-square rounded-full bg-primary-400 space-y-1">
                 <img src={photo} className="w-full h-full object-cover rounded-full" />

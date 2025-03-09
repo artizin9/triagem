@@ -3,6 +3,7 @@ import { useState } from "react"
 import { ModalLogOut } from "./modals/logOut"
 import { SeeExercise } from "./modals/SeeExerciseModal"
 import { InfoExercise } from "./modals/InfoExercise"
+import { BookTraining } from "./modals/bookTraining"
 
 export function HomeAluno(){
     const [TreinoAluno, setTreinoAluno] = useState([])
@@ -33,6 +34,7 @@ export function HomeAluno(){
             Close={() => setInfoExerciseModal(false)}
             TreinoAluno={TreinoAluno}
         />
+        <BookTraining />
     </div>
     )
 }

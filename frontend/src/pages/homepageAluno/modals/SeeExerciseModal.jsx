@@ -15,10 +15,13 @@ export function SeeExercise({Open, Close, TreinoAluno, OpenModalExercise}){
                 </div>
 
                 <div className="w-4/5 grid grid-cols-3 gap-4 pt-4 h-full overflow-y-auto overflow-x-hidden ml-4">
-                    
-                            <CardExercise
+                    {TreinoAluno.map((treino) => (
+                        <CardExercise
+                        Exercise={treino.exercise}
+                        OpenModalExercise={ OpenModalExercise}
+                        />
+                    ))}
                             
-                            />
                         
                 </div>
                 <button onClick={Close} className="absolute w-fit h-fit top-2 left-1 hover:text-primary-100 text-white duration-500">

@@ -12,27 +12,18 @@ export function ErrorPage() {
         setLoading(true)
         try {
             const response = await me()
-
-            if (!response.data) {
-                Navigate('/auth')
-                return
-            }
-
-            const role = response.data.role
-            setTimeout(() => {
-                if (role === 'PERSONAL') {
-                    Navigate('/home/personal')
-                } else {
-                    Navigate('/home/aluno')
-                }
-            }, 1500)
+            const role = response.role
+            Navigate(role === 'PERSONAL' ? '/home/personal' : '/home/aluno')
         } catch (err) {
             Error(err)
             Navigate('/')
         } finally {
-            setLoading(false)
+            setTimeout(() => {
+                setLoading(false)
+            }, 1500)
         }
     }
+    
 
     if (loading) return <Loading />
 

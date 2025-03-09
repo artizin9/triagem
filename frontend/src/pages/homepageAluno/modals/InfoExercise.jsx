@@ -20,21 +20,21 @@ export function InfoExercise({ TreinoAluno, Close, Open }) {
         <div onClick={Close} className={`w-full h-full bg-black flex justify-center items-center bg-opacity-30 fixed inset-0 ${Open ? 'visible' : 'invisible'}`}>
             <div
                 onClick={(e) => e.stopPropagation()}
-                className={`h-[88%] w-3/5 flex flex-col items-center relative rounded-lg shadow-md shadow-black/60 bg-[#131313] pt-1 duration-300 ease-in-out ${Open ? 'scale-100 opacity-100' : 'scale-110 opacity-0'}`}>
+                className={`h-[88%] w-3/5 flex flex-col items-center relative rounded-lg shadow-md shadow-white/15 bg-[#131313] pt-1 duration-300 ease-in-out ${Open ? 'scale-100 opacity-100' : 'scale-110 opacity-0'}`}>
                 <div className="flex flex-col text-center mt-4">
                     <h1 className="font-poppins font-extrabold text-[26px] text-white">INFORMAÇÕES DO <span className="text-primary-100">EXERCICIO</span></h1> 
                 </div>
 
-                <div className="w-1/5 aspect-square rounded-full relative bg-[#131313] mt-4 duration-500 border-opacity-0 ease-in-out transition-all border border-primary-100 hover:border-opacity-100  hover:scale-105">
+                <div className="w-1/5 aspect-square rounded-full relative bg-[#131313] mt-4">
                     <img src={photo ? photo : PhotoDefaultSrc} className="w-full aspect-square rounded-full object-cover duration-500 hover:border-white hover:scale-105" />
                 </div>
                 <div className="relative flex justify-center items-center">
                     <h1 className="font-albert font-normal text-[16px] text-white mt-2">Foto do exercicio</h1>
                 </div>
 
-                <div className="grid grid-cols-3 gap-6 w-[90%] gap-y-12 p-2 mt-6 place-items-center h-[80%]">
+                <div className="grid grid-cols-3 gap-6 w-[90%] gap-y-12 p-2 pb-2 mt-6 place-items-center h-[80%]">
                     {FormFields.map((item, index) => (
-                        <div key={index} className="w-full flex flex-col relative">
+                        <div key={index} className="w-full flex flex-col relative mb-2">
                             <label className="font-albert font-medium text-[#d7d7d7]">{item.label}</label>
                                 <input
                                     readOnly

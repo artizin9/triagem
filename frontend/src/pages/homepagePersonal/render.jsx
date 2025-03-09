@@ -134,8 +134,6 @@ export function Render({imagem}){
         photo: null
     })
 
-    console.log("Teste:", treino)
-
     const RenderComponent = () => {
         switch (id) {
             case 1:
@@ -205,8 +203,6 @@ export function Render({imagem}){
 
     } 
 
-    console.log("Rol:", treino)
-    console.log("Ops: ", formExercise)
 
     return (
         <div className="w-full h-full flex items-center bg-[#222222] overflow-hidden">
