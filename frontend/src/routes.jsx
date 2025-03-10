@@ -17,8 +17,9 @@ export const routes = createBrowserRouter([{
       path: 'home',
       element: <ProtectRouters />, // Componente de proteção
       children: [
-        { path: 'personal', element: <HomePagePersonal /> }, // Página para o Personal
-        { path: 'aluno', element: <HomeAluno /> }, // Página para o Aluno
+        { path: 'personal', element: <HomePagePersonal /> },
+        { path: 'aluno', element: <HomeAluno /> },
+        
       ],
     },
   ],

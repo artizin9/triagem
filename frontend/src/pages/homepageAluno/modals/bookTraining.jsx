@@ -20,41 +20,65 @@ const IconCalendar = (<svg width="28" height="28" viewBox="0 0 26 33" fill="none
 export function BookTraining({ Close, Open }) {
     const [currentDate, setCurrentDate] = useState(new Date());
     const [selectedDays, setSelectedDays] = useState([])
+    const [sendData, setSendData] = useState({
+        Date: '',
+        id: Date.now()
+    })
     const [isDaySelected, setIsDaySelected] = useState(false)
+    const [confirmedDay, setConfirmedDay] = useState(null);
+    const [selectedDay, setSelectedDay] = useState(null)
+    const [step, setStep] = useState(1)
+
+    const today = format(new Date(), "yyyy-MM-dd")
     const mes = format(currentDate, "MMMM", { locale: ptBR }).charAt(0).toUpperCase() + format(currentDate, "MMMM", { locale: ptBR }).slice(1).toLowerCase() 
     const daysInMonth = eachDayOfInterval({
         start: startOfMonth(currentDate),
         end: endOfMonth(currentDate)
     });
 
-    const handleClickDay = () => {
-        const today = format(new Date(), "yyyy-MM-dd");
-        if (isDaySelected) {
-            setSelectedDays((prev) => prev.filter((d) => d !== today));
-            setIsDaySelected(false);
+    const handleClickDay = (day) => {
+        const formattedDay = format(day, "yyyy-MM-dd");
+        if (confirmedDay === today) return;
+        if (selectedDay === formattedDay) {
+            setSelectedDay(null);
+            setStep(1);
         } else {
-            setSelectedDays((prev) => [...prev, today]);
-            setIsDaySelected(true);
+            setSelectedDay(formattedDay);
+        setSendData((prevData) => ({
+            ...prevData,
+            Date: formattedDay
+        }))
+            setStep(2);
         }
+    };
+
+    const handleConfirm = () => {
+        setConfirmedDay(selectedDay)
+        setSelectedDays((prevDays) => [...prevDays, sendData]);
+        setStep(1)
+    };
+
+    const handleUnselect = () => {
+        setSelectedDay(null);
+        setStep(1);
     };
 
     console.log(selectedDays)
 
     const prevMonth = () => setCurrentDate((prev) => new Date(prev.getFullYear(), prev.getMonth() - 1, 1));
     const nextMonth = () => setCurrentDate((prev) => new Date(prev.getFullYear(), prev.getMonth() + 1, 1));
-    const Navigate = useNavigate()
-
+    
     return (
         <div onClick={Close} className={`w-full h-full bg-black flex justify-center items-center bg-opacity-30 fixed inset-0 ${open ? 'visible' : 'invisible'}`}>
             <div
                 onClick={(e) => e.stopPropagation()}
-                className={`h-[80%] w-2/5 flex flex-col items-center relative rounded-lg shadow-md shadow-white/20 bg-[#131313] pt-1 duration-300 ease-in-out ${open ? 'scale-100 opacity-100' : 'scale-110 opacity-0'}`}>
+                className={`h-[72%] w-2/5 flex flex-col items-center relative rounded-lg shadow-md shadow-white/20 bg-[#131313] pt-1 duration-300 ease-in-out ${open ? 'scale-100 opacity-100' : 'scale-110 opacity-0'}`}>
                 <div className="flex flex-col text-center mt-4">
-                    <h1 className="font-poppins font-semibold text-[24px] text-white">MARQUE SEU <span className="text-primary-100">TREINO</span></h1>
+                    <h1 className="font-poppins font-semibold text-[26px] text-white">MARQUE SEU <span className="text-primary-100">TREINO</span></h1>
                     <h1 className="font-albert font-medium text-[15px] text-white">Registre seu progresso</h1>
                 </div>
 
-                <div className="w-[90%] h-full bg-black text-white p-1 pt-4 rounded-lg">
+                <div className="w-[90%] h-full bg-[#131313] text-white p-1 pt-4 rounded-lg">
                     <div className="flex justify-between items-center pt-4">
                         <button className="hover:text-primary-100 duration-500 text-white" onClick={prevMonth}>{PrevMouth}</button>
                         <h2 className="font-poppins font-bold text-[20px] flex space-x-4">
@@ -70,13 +94,17 @@ export function BookTraining({ Close, Open }) {
                         {daysInMonth.map((day) => {
                             const isPast = isBefore(day, new Date()) && !isToday(day);
                             const formattedDay = format(day, "yyyy-MM-dd");
-                            const isSelected = selectedDays.includes(formattedDay);
+                            const isSelected = selectedDay === formattedDay;
+                            const isConfirmed = confirmedDay === formattedDay;
                             return (
                                 <button
                                     key={formattedDay}
+                                    onClick={() => handleClickDay(day)}
+                                    disabled={confirmedDay && confirmedDay !== today}
                                     className={`w-8 h-8 flex items-center justify-center rounded-lg duration-500 
-                ${isPast ? "text-gray-500" : "text-white"} 
-                ${isSelected ? "bg-primary-100" : "bg-transparent"}`}
+                                        ${isPast ? "text-gray-500" : "text-white"} 
+                                        ${isSelected ? "bg-red-500" : "bg-transparent"} 
+                                        ${isConfirmed ? "bg-primary-100" : ""}`}
                                 >
                                     {format(day, "d")}
                                 </button>
@@ -85,24 +113,26 @@ export function BookTraining({ Close, Open }) {
                     </div>
                 </div>
                 
-                {!isDaySelected ? 
+                {step === 1 && !confirmedDay &&
                 (<button
-                onClick={handleClickDay} 
+                onClick={() => handleClickDay(new Date())} 
                 className="w-1/2 py-1 mb-3 flex space-x-3 items-center justify-center hover:bg-primary-100 duration-500 hover:text-white rounded-lg bg-white font-poppins font-bold text-primary-400 text-[16px]">
                     <h1>REGISTRAR TREINO</h1>
                     <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M12.775 21.4084L8.63333 17.2667L10.325 15.575L12.775 18.025L17.675 13.125L19.3667 14.8167L12.775 21.4084ZM5.83333 25.6667C5.19167 25.6667 4.64236 25.4382 4.18542 24.9813C3.72847 24.5243 3.5 23.975 3.5 23.3334V7.00004C3.5 6.35837 3.72847 5.80907 4.18542 5.35212C4.64236 4.89518 5.19167 4.66671 5.83333 4.66671H7V2.33337H9.33333V4.66671H18.6667V2.33337H21V4.66671H22.1667C22.8083 4.66671 23.3576 4.89518 23.8146 5.35212C24.2715 5.80907 24.5 6.35837 24.5 7.00004V23.3334C24.5 23.975 24.2715 24.5243 23.8146 24.9813C23.3576 25.4382 22.8083 25.6667 22.1667 25.6667H5.83333ZM5.83333 23.3334H22.1667V11.6667H5.83333V23.3334ZM5.83333 9.33337H22.1667V7.00004H5.83333V9.33337Z" fill="currentColor"/>
                     </svg>
-                </button>) : (
+                </button>)}
+                
+                {step === 2 && (
                 <div className="flex items-center justify-center w-full space-x-5">
                     <button
-                    onClick={handleClickDay} 
+                    onClick={handleUnselect} 
                     className="w-[42%] py-1 mb-3 flex space-x-3 items-center justify-center hover:bg-primary-100 duration-500 hover:text-white rounded-lg bg-white font-poppins font-bold text-primary-400 text-[16px]">
                         <h1>RETIRAR REGISTRO</h1>
                         <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 -960 960 960" fill="currentColor"><path d="m388-212-56-56 92-92-92-92 56-56 92 92 92-92 56 56-92 92 92 92-56 56-92-92-92 92ZM200-80q-33 0-56.5-23.5T120-160v-560q0-33 23.5-56.5T200-800h40v-80h80v80h320v-80h80v80h40q33 0 56.5 23.5T840-720v560q0 33-23.5 56.5T760-80H200Zm0-80h560v-400H200v400Zm0-480h560v-80H200v80Zm0 0v-80 80Z"/></svg>               
                     </button>
                     <button
-                    onClick={handleClickDay} 
+                    onClick={handleConfirm} 
                     className="w-[43%] py-1 mb-3 flex space-x-3 items-center justify-center hover:bg-primary-100 duration-500 hover:text-white rounded-lg bg-white font-poppins font-bold text-primary-400 text-[16px]">
                         <h1>CONFIRMAR REGISTRO</h1>
                         <svg xmlns="http://www.w3.org/2000/svg" height="28" viewBox="0 -960 960 960" width="28" fill="currentColor"><path d="M438-226 296-368l58-58 84 84 168-168 58 58-226 226ZM200-80q-33 0-56.5-23.5T120-160v-560q0-33 23.5-56.5T200-800h40v-80h80v80h320v-80h80v80h40q33 0 56.5 23.5T840-720v560q0 33-23.5 56.5T760-80H200Zm0-80h560v-400H200v400Zm0-480h560v-80H200v80Zm0 0v-80 80Z"/></svg>
