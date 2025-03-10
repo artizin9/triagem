@@ -1,0 +1,64 @@
+@baseUrl = http://localhost:3333
+
+@token = {{login.response.body.token}}
+
+# @name test_api
+GET {{baseUrl}}
+
+###
+######## AUTH SECTION #######
+# @name registra_usuário
+POST {{baseUrl}}/register
+Content-Type: application/json
+
+{
+  "name": "John Doe",
+  "email": "johndoe1@example.com",
+  "password": "123123"
+}
+
+###
+
+# @name login
+POST {{baseUrl}}/login
+Content-Type: application/json
+
+{
+  "email": "johndoe1@example.com",
+  "password": "123123"
+}
+
+###
+
+# @name me
+GET {{baseUrl}}/me
+Authorization: Bearer {{token}}
+
+###
+####### ALUNOS SECTION #######
+
+# @name get_alunos
+GET {{baseUrl}}/alunos
+Authorization: Bearer {{token}}
+
+###
+
+# @name post_alunos
+POST {{baseUrl}}/alunos
+Content-Type: application/json
+
+{
+  "name": "Pedro Jorge",
+  "email": "pedro2@example.com",
+  "password": "123123123",
+  "city": "massapê",
+  "country": "Ceará",
+  "phone": "(88) 99999-1234",
+  "imageUrl": null
+}
+
+###
+####### TREINOS SECTION #######
+# @name get_treinos
+GET {{baseUrl}}/treinos
+Authorization: Bearer {{token}}
