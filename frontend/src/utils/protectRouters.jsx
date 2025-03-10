@@ -2,6 +2,7 @@ import { Outlet, Navigate, useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { Loading } from '../pages/loading/loading';
 import axios from 'axios';
+import {me} from './api/api'
 
 export function ProtectRouters() {
     const [role, setRole] = useState('');
@@ -13,10 +14,8 @@ export function ProtectRouters() {
     useEffect(() => {
         const getData = async () => {
             try {
-                const response = await axios.get('http://localhost:3333/me', {
-                    withCredentials: true,
-                })
-                const Role = response.data.role;
+                const { user } = await me()
+                const Role = user.role
                 setRole(Role)
             } catch (error) {
                 console.log(error)

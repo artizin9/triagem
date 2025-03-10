@@ -4,6 +4,9 @@ import { useState, useRef, useEffect } from 'react'
 import { auth, me } from '../../utils/api/api'
 import { MessageError } from '../../utils/error/errorAuth'
 import gsap from 'gsap'
+import Cookies from 'js-cookie';
+
+
 
 
 const ToBack = (<svg width="20" height="15" className="rotate-180" viewBox="0 0 22 17" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -52,10 +55,11 @@ export function Auth() {
         
         setError(false)
         const Data = { email: email, password: password }
-
         try {
-            await auth(Data)
-            const { role } = await me()
+            const { token }  = await auth(Data)
+            Cookies.set('token', token, { expires: 7 });
+            const { user } = await me()
+            const role = user.role
             role === 'PERSONAL' ? Navigate('/home/personal') : Navigate('/home/aluno')
         }
 

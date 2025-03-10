@@ -17,7 +17,7 @@ const app = Fastify()
 
 // Registro do CORS com configuração personalizada
 app.register(fastifyCors, {
-  origin: '*', // Altere para a URL do seu frontend
+  origin: 'http://localhost:5173', // Altere para a URL do seu frontend
   methods: ['GET', 'POST', 'PUT', 'DELETE'], // Métodos permitidos
   allowedHeaders: ['Content-Type', 'Authorization'], // Cabeçalhos permitidos
   credentials: true, // Permite cookies
