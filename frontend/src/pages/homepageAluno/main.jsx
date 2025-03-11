@@ -68,6 +68,7 @@ export function Home({ OpenModalLogOut, OpenModalSeeExercise, TreinoAluno, setTr
 
     const userData = async () => {
         const { user } = await me()
+        const { name } = user
         const { photo } = user
         setName(name)
         setImg(photo)
