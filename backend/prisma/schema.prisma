@@ -4,7 +4,7 @@ generator client {
 
 datasource db {
   provider = "sqlite"
-  url      = env("DATABASE_URL")
+  url      = "file:./dev.db"
 }
 
 enum Role {
@@ -20,7 +20,7 @@ model User {
   password String
   role     Role    @default(ALUNO)
   city     String?
-  state  String?
+  state    String?
   phone    String?
 
   UserTreino UserTreino[]
