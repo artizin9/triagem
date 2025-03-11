@@ -20,7 +20,7 @@ model User {
   password String
   role     Role    @default(ALUNO)
   city     String?
-  country  String?
+  state  String?
   phone    String?
 
   UserTreino UserTreino[]
