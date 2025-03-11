@@ -112,10 +112,18 @@ export function CreateAluno({ aluno, setAluno, Close, Open, form, setForm, Clean
         const formData = new FormData()
         formData.append('file', file)
 
+<<<<<<< HEAD
         for (const key in form) {
             if (key !== 'file') {
             formData.append(key, form[key])
         }  
+=======
+    // Adiciona os outros dados ao FormData
+    for (const key in form) {
+        if (key !== 'file') { // Evita sobrescrever a imagem
+            formData.append(key, form[key])
+        }
+>>>>>>> 5b0292b41a067fa0559f3f2368fc072f2a930b4f
     }
 
         setAluno((alunos) => [...alunos, {...form, training: [] }])

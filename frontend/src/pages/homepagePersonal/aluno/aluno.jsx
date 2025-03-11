@@ -18,7 +18,13 @@ export function Aluno({ aluno, setAluno, OpenCreate, OpenUpdate, OpenDelete, Ope
     const [filterType, setFilterType] = useState("filtrar");
 
     useEffect(() => {
+<<<<<<< HEAD
         const response = async () => await getUser(setAluno)
+=======
+        const response = async () => {
+            await getUser(setAluno)
+        }
+>>>>>>> 5b0292b41a067fa0559f3f2368fc072f2a930b4f
         response()
     }, [])
     

@@ -1,6 +1,10 @@
 import { useState, useEffect } from "react"
+<<<<<<< HEAD
 import noPhoto from '../../assets/imgs/noPhoto.png'
 import { me, deleteUser, deleteTraining } from '../../utils/api/api'
+=======
+import { me, deleteUser } from '../../utils/api/api'
+>>>>>>> 5b0292b41a067fa0559f3f2368fc072f2a930b4f
 import { Error } from "../../utils/error/errorAuth"
 import { ModalLogOut } from "./modals/LogOut"
 import { CreateAluno } from "./modals/modalAluno/ModalCreateAluno"

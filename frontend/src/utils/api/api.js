@@ -37,8 +37,11 @@ export async function me(){
     }
 }
 
+<<<<<<< HEAD
 // CRUD Aluno
 
+=======
+>>>>>>> 5b0292b41a067fa0559f3f2368fc072f2a930b4f
 export async function createUser(formData){
     try {
         const response = await api.post('/alunos', formData, {
@@ -70,6 +73,7 @@ export async function getUser(setAluno) {
     }
 }
 
+<<<<<<< HEAD
 export async function updateUser(id, dataForm){
     try {
         const response = await api.put(`/alunos/${id}`, dataForm, {
@@ -81,6 +85,8 @@ export async function updateUser(id, dataForm){
     }
 }
 
+=======
+>>>>>>> 5b0292b41a067fa0559f3f2368fc072f2a930b4f
 export async function deleteUser(id) {
     try {
         const response = await api.delete(`/alunos/${id}`)
@@ -89,6 +95,7 @@ export async function deleteUser(id) {
        return Error(error)
     }
 }
+<<<<<<< HEAD
 
 // CRUD Treino
 
@@ -211,3 +218,5 @@ export async function deleteAlunotoTraining(idAluno, idTreino){
         Error(error)
     }
 }
+=======
+>>>>>>> 5b0292b41a067fa0559f3f2368fc072f2a930b4f
