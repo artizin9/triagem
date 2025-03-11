@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react"
-import { userData } from "../../utils/api/api"
+import noPhoto from '../../assets/imgs/noPhoto.png'
+import { me, deleteUser, deleteTraining } from '../../utils/api/api'
 import { Error } from "../../utils/error/errorAuth"
 import { ModalLogOut } from "./modals/LogOut"
 import { CreateAluno } from "./modals/modalAluno/ModalCreateAluno"
@@ -19,7 +20,7 @@ import { DeleteExercise } from "./modals/ModalExercise/ModalDeleteExercise"
 import { Aluno } from "./aluno/aluno"
 import { Treino } from "./treino/treino"
 
-
+const PhotoDefaultSrc = "data:image/svg+xml,%3Csvg width='150' height='150' viewBox='0 0 150 150' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='75' cy='75' r='75' fill='%23252424'/%3E%3Cpath d='M127.53 128.642C127.53 121.785 126.362 112.859 123.609 106.524C120.855 100.189 116.82 94.4326 111.732 89.5839C106.644 84.7352 100.604 80.8891 93.9567 78.265C87.3093 75.6409 80.1847 74.2903 72.9895 74.2903C65.7944 74.2903 58.6697 75.6409 52.0223 78.265C45.3749 80.8891 39.3349 84.7352 34.2472 89.5839C29.1595 94.4326 25.1237 100.189 22.3702 106.524C19.6167 112.859 19.8806 119.484 19.8806 126.341C37.059 139.811 44.664 149.696 73.9359 149.763L81.208 149.054L89.6756 147.63L96.3998 145.968L101.132 144.544L105.614 142.693L109.101 141.126L112.588 139.323L116.074 137.281L119.312 135.145L121.678 133.474L124.044 131.633L124.542 131.253L125.04 130.816L126.036 129.971L127.157 128.974L127.53 128.642Z' fill='%23A9A9A9'/%3E%3Ccircle cx='74.7635' cy='39.2745' r='28.3912' fill='%23A9A9A9'/%3E%3C/svg%3E"
 const Iconreport = (<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path d="M10 14.1667C9.76389 14.1667 9.56597 14.0868 9.40625 13.9271C9.24653 13.7674 9.16667 13.5694 9.16667 13.3333C9.16667 13.0972 9.24653 12.8993 9.40625 12.7396C9.56597 12.5799 9.76389 12.5 10 12.5C10.2361 12.5 10.434 12.5799 10.5938 12.7396C10.7535 12.8993 10.8333 13.0972 10.8333 13.3333C10.8333 13.5694 10.7535 13.7674 10.5938 13.9271C10.434 14.0868 10.2361 14.1667 10 14.1667ZM9.16667 10.8333V2.5H10.8333V10.8333H9.16667ZM4.16667 17.5C3.70833 17.5 3.31597 17.3368 2.98958 17.0104C2.66319 16.684 2.5 16.2917 2.5 15.8333V13.3333H4.16667V15.8333H15.8333V13.3333H17.5V15.8333C17.5 16.2917 17.3368 16.684 17.0104 17.0104C16.684 17.3368 16.2917 17.5 15.8333 17.5H4.16667Z" fill="currentColor"/>
     </svg>)
@@ -82,7 +83,8 @@ export function Render({imagem}){
         state: '',
         city: '',
         password: '',
-        photo: null
+        photo: PhotoDefaultSrc,
+        file: null
     })
     const CleanForm = () => setForm({
         id: Date.now(),
@@ -92,8 +94,9 @@ export function Render({imagem}){
         state: '',
         city: '',
         password: '',
-        photo: null
-    })
+        photo: PhotoDefaultSrc,
+        file: null
+    })  
 
     const [treino, setTreino] = useState([])
     const [formTreino, setFormTreino] = useState({
@@ -102,7 +105,8 @@ export function Render({imagem}){
         destined: '',
         time: '',
         weekDay: '',
-        photo: null
+        photo: noPhoto,
+        file: null
     })
     const CleanTreino = () => setFormTreino({
         id: Date.now(), // id teste, coloque o id verdadeiro dps
@@ -110,7 +114,8 @@ export function Render({imagem}){
         destined: '',
         time: '',
         weekDay: '',
-        photo: null
+        photo: noPhoto,
+        file: null
     })
 
     const [formExercise, setFormExercise] = useState({
@@ -139,6 +144,7 @@ export function Render({imagem}){
             case 1:
                 return <Aluno 
                         aluno={alunos} 
+                        setAluno={setAlunos}
                         OpenCreate={() => {
                             CleanForm()
                             setCreateModal(true)
@@ -151,6 +157,7 @@ export function Render({imagem}){
             case 2:
                 return <Treino 
                         treino={treino}
+                        setTreino={setTreino}
                         OpenCreateTraining={() => {
                             CleanTreino()
                             setCreateModalTreino(true)
@@ -164,12 +171,14 @@ export function Render({imagem}){
         }
     }
 
-    function DeletarAluno() {
+    async function DeletarAluno() {
+        await deleteUser(form.id)
         setAlunos((alunos) => alunos.filter((aluno) => aluno?.id !== form.id))
         setDeleteModal(false)
     }
 
-    function DeletarTreino(){
+    async function DeletarTreino(){
+        await deleteTraining(formTreino.id)
         setTreino((treinos) => treinos.filter((treino) => treino.id !== formTreino.id))
         setDeleteModalTreino(false)
     }
@@ -190,17 +199,13 @@ export function Render({imagem}){
     }
 
     useEffect(() => {
-        UserData();
+        userData();
     }, []);
 
-    async function UserData() {
-        try {
-            const { name } = await userData()
+    async function userData() {
+            const { user } = await me()
+            const { name } = user
             setName(name)
-        }catch(erro){
-            Error(erro)
-        }
-
     } 
 
 

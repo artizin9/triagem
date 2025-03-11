@@ -80,8 +80,6 @@ export function CreateExercise({ Treino, setTreino, Close, Open, formExercise, s
         }, 4000)
     }
 
-    console.log(id)
-
     const FormFields = [
         { label: "Nome:", name: "name", type: "text", onChange: GetValuesForm, placeholder: "Ex. Agachamento ", value: name },
         { label: "Numero de execuções:", name: "numberExec", type: "text", onChange: GetValuesForm, placeholder: "Ex. 3 exercuções", value: numberExec },

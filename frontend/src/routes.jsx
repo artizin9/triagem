@@ -19,7 +19,6 @@ export const routes = createBrowserRouter([{
       children: [
         { path: 'personal', element: <HomePagePersonal /> },
         { path: 'aluno', element: <HomeAluno /> },
-        
       ],
     },
   ],

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Treino } from './treino/treino'
-import { userData } from '../../utils/api/api'
+import { me } from '../../utils/api/api'
 import { Error } from '../../utils/error/errorAuth'
 
 const IconLogOut = (<svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -54,31 +54,28 @@ export function Home({ OpenModalLogOut, OpenModalSeeExercise, TreinoAluno, setTr
     const RenderComponent = () => {
         switch (id) {
             case 1:
-                return <Treino TreinoAluno={TreinoAluno} OpenModalExercise={OpenModalSeeExercise}/>
+                return <Treino TreinoAluno={TreinoAluno} OpenModalExercise={OpenModalSeeExercise} />
             case 2:
                 return 2
         }
     }
 
-    
+
     const Seta = (<svg width="24" height="24" className={`absolute right-1 top-2 duration-500 transition-all ${seta ? "rotate-180" : "rotate-0"}`} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M12 13.2L16.6 8.6L18 10L12 16L6 10L7.4 8.6L12 13.2Z" fill="#FFF" />
     </svg>
     )
 
-    const userDatas = async () => {
-        try {
-            const { name, photo } = await userData()
-            setName(name)
-            setImg(photo)
-        }
-        catch (error) {
-            Error(error)
-        }
+    const userData = async () => {
+        const { user } = await me()
+        const { name } = user
+        const { photo } = user
+        setName(name)
+        setImg(photo)
     }
 
     useEffect(() => {
-        userDatas()
+        userData()
     }, [])
 
 

@@ -34,7 +34,7 @@ export async function alunoRoutes(app: FastifyInstance) {
         password: z.string(),
         phone: z.string(),
         city: z.string(),
-        country: z.string(),
+        state: z.string(),
       })
 
       const fields = createAlunoBodySchema.parse(request.body)
@@ -52,7 +52,7 @@ export async function alunoRoutes(app: FastifyInstance) {
       const aluno = await prisma.user.create({
         data: {
           ...fields,
-          imageUrl: uploadImage.filename,
+          imageUrl: uploadImage.filename || 'user_null.png' ,
           password: hashedPassword,
           role: 'ALUNO',
         },
@@ -69,9 +69,85 @@ export async function alunoRoutes(app: FastifyInstance) {
     }
   )
 
-  // TODO: Terminar essas rotas
 
-  //app.put()
+  app.put('/alunos/:id', { preHandler: multer(multerConfig).single('file') }, async (request, reply) => {
+    try {
+      const { id } = request.params as { id: string };
+      const uploadImage = request.file as any;
+  
+      const updateAlunoBodySchema = z.object({
+        name: z.string().optional(),
+        email: z.string().email().optional(),
+        password: z.string().optional(),
+        phone: z.string().optional(),
+        city: z.string().optional(),
+        state: z.string().optional(),
+      });
+  
+      const fields = updateAlunoBodySchema.parse(request.body);
+  
+      const aluno = await prisma.user.findUnique({
+        where: { id },
+      });
+  
+      if (!aluno) {
+        return reply.status(404).send({ error: 'Aluno não encontrado' });
+      }
+  
+      if (fields.email && fields.email !== aluno.email) {
+        const existingUser = await prisma.user.findUnique({
+          where: { email: fields.email },
+        });
+        if (existingUser) {
+          return reply.status(409).send({ error: 'Email já existe' });
+        }
+      }
+  
+      if (fields.password) {
+        fields.password = await bcrypt.hash(fields.password, 10);
+      }
+  
+      const updatedAluno = await prisma.user.update({
+        where: { id },
+        data: {
+          ...fields,
+          imageUrl: uploadImage?.filename || aluno.imageUrl,
+        },
+      });
+  
+      return reply.status(200).send({
+        ...updatedAluno,
+        password: undefined,
+      });
+    } catch (error) {
+      console.error('Erro ao atualizar aluno:', error);
+      return reply.status(500).send({ error: 'Erro interno ao atualizar aluno' });
+    }
+  });
+  
 
-  // app.delete()
+  app.delete('/alunos/:id', async (request, reply) => {
+    try {
+      const { id } = request.params as { id: string }
+  
+      // Verifica se o aluno existe
+      const aluno = await prisma.user.findUnique({
+        where: { id },
+      })
+  
+      if (!aluno) {
+        return reply.status(404).send({ error: 'Aluno não encontrado' })
+      }
+  
+      // Deleta o aluno
+      await prisma.user.delete({
+        where: { id },
+      })
+  
+      return reply.status(200).send({ message: 'Aluno deletado com sucesso' })
+    } catch (error) {
+      console.error('Erro ao deletar aluno:', error)
+      return reply.status(500).send({ error: 'Erro interno ao deletar aluno' })
+    }
+  })
 }

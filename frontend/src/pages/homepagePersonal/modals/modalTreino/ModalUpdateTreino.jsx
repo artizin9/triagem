@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import noPhoto from '../../../../assets/imgs/selecionarFoto.png'
+import { updateTraining } from "../../../../utils/api/api"
 
 const OptionsWeekDay = [
     {day: 'Segunda-feira'},
@@ -26,7 +27,7 @@ export function UpdateTreino({ treino, setTreino, Close, Open, formTreino, setfo
     const [error, setError] = useState(false)
     const [messageClean, setMessageClean] = useState(false)
 
-    const { id, name, destined, weekDay, time, photo } = formTreino
+    const { id, name, destined, weekDay, time, photo, file } = formTreino
 
     function GetValuesformTreino(e) {
         const { name, value } = e.target
@@ -41,7 +42,10 @@ export function UpdateTreino({ treino, setTreino, Close, Open, formTreino, setfo
         if (file) {
             const reader = new FileReader()
             reader.onloadend = () => {
-                setformTreino((prev) => ({ ...prev, photo: reader.result }))
+                setformTreino((prev) => ({ 
+                    ...prev, 
+                    file: file,
+                    photo: reader.result }))
             }
             reader.readAsDataURL(file)
         }
@@ -63,10 +67,17 @@ export function UpdateTreino({ treino, setTreino, Close, Open, formTreino, setfo
     }
 
 
-    function UpdateTreino() {
+   async function UpdateTreino() {
         if (!Verification()) {
             setError(true)
             return
+        }
+
+        const formDataTraining = new FormData()
+        formDataTraining.append('file', file)
+
+        for (const key in formTreino){
+            key !== 'file' ? formDataTraining.append(key, formTreino[key]) : ''
         }
 
         setTreino((treinos) => 
@@ -77,6 +88,8 @@ export function UpdateTreino({ treino, setTreino, Close, Open, formTreino, setfo
         setTimeout(() => {
             setMessageRight(false)
         }, [2000])
+
+        await updateTraining(id, formDataTraining)
     }
 
     // O backend deve colocar a api da cidade e estado, boa sorte nisso
