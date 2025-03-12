@@ -14,10 +14,10 @@ export function CardTreino({treino, Delete, UpdateInfo, SeeTraining, type, SendT
         <div className={`bg-primary-400 w-[90%] h-[60%] flex flex-col relative items-center rounded-lg p-2 shadow-md shadow-black/40 justify-between ${type === "treino" ? "min-h-[330px]" : "min-h-[280px]"} ${type === "treino" ? 'bg-primary-400' : 'bg-[#1a1919]'}`}>
             <div className="flex flex-col items-center justify-center w-[60%]"> 
                 <div className="w-full aspect-square rounded-full bg-primary-400 space-y-1">
-                <img src={photo} className="w-full h-full object-cover rounded-full" />
+                <img src={type === "treino" ? photo : treino.imageURL} className="w-full h-full object-cover rounded-full" />
             </div> 
             <h1 className="font-poppins font-medium text-[14px] whitespace-nowrap text-white mt-1">{treino?.name}</h1>
-            {type === "treino" ? (<h1 className="font-albert font-regular text-[12px] text-primary-200">Para {treino?.destined}</h1>) : (
+            {type === "treino" ? (<h1 className="font-albert font-regular text-[12px] text-primary-200">Para {type === "treino" ? treino?.destined : treino?.trainingLevel}</h1>) : (
                 <>
                 <h1 className="font-albert font-regular text-[12px] text-primary-200">Para {treino?.destined}</h1>
                 <h1 className="font-albert font-regular text-[12px] text-primary-200">{treino?.weekDay}</h1>

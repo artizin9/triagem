@@ -6,7 +6,7 @@ const Search = (<svg width="22" className="absolute right-1.5 top-2 " height="22
 </svg>
 )
 
-export function Treino({TreinoAluno, OpenModalExercise}) {
+export function Treino({TreinoAluno, OpenModalExercise, DoneTraining}) {
     console.log("Renderizando Treino...");
     const [seta, setSeta] = useState(false)
     const [searchQuery, setSearchQuery] = useState("")
@@ -71,6 +71,7 @@ export function Treino({TreinoAluno, OpenModalExercise}) {
                 <CardTreinoAluno
                 treino={treino}
                 SeeExercise={OpenModalExercise}
+                DoneTraining={DoneTraining}
                 />
             ))}
                 

@@ -69,10 +69,10 @@ export function BookTraining({ Close, Open }) {
     const nextMonth = () => setCurrentDate((prev) => new Date(prev.getFullYear(), prev.getMonth() + 1, 1));
     
     return (
-        <div onClick={Close} className={`w-full h-full bg-black flex justify-center items-center bg-opacity-30 fixed inset-0 ${open ? 'visible' : 'invisible'}`}>
+        <div onClick={Close} className={`w-full h-full bg-black flex justify-center items-center bg-opacity-30 fixed inset-0 ${Open ? 'visible' : 'invisible'}`}>
             <div
                 onClick={(e) => e.stopPropagation()}
-                className={`h-[72%] w-2/5 flex flex-col items-center relative rounded-lg shadow-md shadow-white/20 bg-[#131313] pt-1 duration-300 ease-in-out ${open ? 'scale-100 opacity-100' : 'scale-110 opacity-0'}`}>
+                className={`h-[72%] w-2/5 flex flex-col items-center relative rounded-lg shadow-md shadow-white/20 bg-[#131313] pt-1 duration-300 ease-in-out ${Open ? 'scale-100 opacity-100' : 'scale-110 opacity-0'}`}>
                 <div className="flex flex-col text-center mt-4">
                     <h1 className="font-poppins font-semibold text-[26px] text-white">MARQUE SEU <span className="text-primary-100">TREINO</span></h1>
                     <h1 className="font-albert font-medium text-[15px] text-white">Registre seu progresso</h1>

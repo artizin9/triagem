@@ -8,7 +8,7 @@ const iconDelete = (<svg width="22" height="22" viewBox="0 0 16 16" fill="none" 
 
 export function CardTreinoAluno({TreinoAluno, SeeExercise, DoneTraining}){
 
-    const photo = TreinoAluno?.photo ? TreinoAluno?.photo : noPhoto
+    const photo = TreinoAluno?.imageUrl
 
     return (
         <div className={`bg-primary-400 w-[90%] h-[60%] flex flex-col relative items-center rounded-lg p-2 shadow-md shadow-black/40 justify-between max-h-[300px] min-h-[300px]`}>
@@ -17,7 +17,7 @@ export function CardTreinoAluno({TreinoAluno, SeeExercise, DoneTraining}){
                 <img src={photo} className="w-full h-full object-cover rounded-full" />
             </div> 
             <h1 className="font-poppins font-medium text-[14px] text-white mt-1">{TreinoAluno?.name}</h1>
-            <h1 className="font-albert font-regular text-[12px] text-primary-200">Para {TreinoAluno?.destined}</h1>
+            <h1 className="font-albert font-regular text-[12px] text-primary-200">Para {TreinoAluno?.levelTraining}</h1>
             <h1 className="font-albert font-regular text-[12px] text-primary-200">{TreinoAluno?.weekDay}</h1>
             </div>
                     <div className="w-[95%] items-center p-1 justify-center space-y-3">
