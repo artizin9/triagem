@@ -50,7 +50,6 @@ export function UpdateAluno({ aluno, setAluno, Close, Open, form, setForm }) {
 
         const isEmailValid = email.includes('@') && email.endsWith('.com') && email.length > 3
         const isPhoneValid = phone.length >= 15
-        const isPasswordValid = password.length >= 8
         const isFieldsNotEmpty = name.trim() && state.trim() && city.trim()
 
         if (!isFieldsNotEmpty) {
@@ -67,12 +66,6 @@ export function UpdateAluno({ aluno, setAluno, Close, Open, form, setForm }) {
 
         if (!isPhoneValid) {
             setMessageError("Erro! Digite um número de telefone válido")
-            setError(true)
-            return false
-        }
-
-        if (!isPasswordValid) {
-            setMessageError("Erro! Digite uma senha maior que 7 caracteres")
             setError(true)
             return false
         }
@@ -111,7 +104,7 @@ export function UpdateAluno({ aluno, setAluno, Close, Open, form, setForm }) {
         { label: "Nome:", name: "name", type: "text", onChange: GetValuesForm, placeholder: "Ex. João Paulo ", value: name },
         { label: "Email:", name: "email", type: "email", onChange: GetValuesForm, placeholder: "Ex.JoaoPaulo@gmail.com", value: email },
         { label: "Telefone:", name: "phone", type: "text", onChange: GetValuesForm, placeholder: "Ex. (88) 88888-8888 ", value: phone },
-        { label: "Senha:", name: "password", type: "password", onChange: GetValuesForm, value: password },
+        { label: "Senha:", name: "password", type: "password", onChange: GetValuesForm, value: password, placeholder: "Nova senha" },
         { label: "Estado:", name: "state", type: "select", onChange: GetValuesForm, placeholder: "Ex. São Paulo", value: state },
         { label: "Cidade:", name: "city", type: "select", onChange: GetValuesForm, placeholder: "Ex. São Paulo", value: city }
     ]
@@ -137,7 +130,7 @@ export function UpdateAluno({ aluno, setAluno, Close, Open, form, setForm }) {
                 </div>
 
                 <div className="w-1/5 aspect-square rounded-full relative bg-[#131313] mt-4 duration-500 border-opacity-0 ease-in-out transition-all border border-primary-100 hover:border-opacity-100  hover:scale-105">
-                    <img src={photo ? photo : PhotoDefaultSrc} className="w-full aspect-square rounded-full object-cover duration-500 hover:border-white hover:scale-105" />
+                    <img src={photo ? photo : file} className="w-full aspect-square rounded-full object-cover duration-500 hover:border-white hover:scale-105" />
                     <input type="file" accept="image/*" onChange={HandleFileChange} className="opacity-0 absolute top-0 w-full h-full cursor-pointer" />
                 </div>
                 <div className="relative flex justify-center items-center">

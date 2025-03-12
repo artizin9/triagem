@@ -20,11 +20,7 @@ model User {
   password String
   role     Role    @default(ALUNO)
   city     String?
-<<<<<<< HEAD
   state  String?
-=======
-  state    String?
->>>>>>> 5b0292b41a067fa0559f3f2368fc072f2a930b4f
   phone    String?
 
   UserTreino UserTreino[]
@@ -49,7 +45,8 @@ model Exercicio {
   repetitions String
   executions  String
   interval    String
-
+  name        String
+  execByRep   String
   treino   Treino @relation(fields: [treinoId], references: [id], onDelete: Cascade)
   treinoId String
 }

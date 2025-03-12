@@ -52,6 +52,8 @@ export async function exerciciosRoutes(app: FastifyInstance) {
       })
 
       const createExercicioBodySchema = z.object({
+        name: z.string(),
+        execByRep: z.string(),
         description: z.string(),
         repetitions: z.string(),
         executions: z.string(),
@@ -60,17 +62,19 @@ export async function exerciciosRoutes(app: FastifyInstance) {
 
       const { idTreino } = idTreinoParams.parse(request.params)
 
-      const { description, executions, interval, repetitions } =
+      const { name, execByRep, description, executions, interval, repetitions } =
         createExercicioBodySchema.parse(request.body)
 
       const exercicio = await prisma.exercicio.create({
         data: {
+          execByRep,
+          name,
           description,
           executions,
           interval,
           repetitions,
           treinoId: idTreino,
-          imageUrl: uploadImage.filename,
+          imageUrl: uploadImage.filename || 'noPhoto.png',
         },
       })
 
@@ -89,6 +93,8 @@ export async function exerciciosRoutes(app: FastifyInstance) {
       })
 
       const updateExercicioBodySchema = z.object({
+        execByRep: z.string().optional(),
+        name: z.string().optional(),
         description: z.string().optional(),
         repetitions: z.string().optional(),
         executions: z.string().optional(),
@@ -96,12 +102,14 @@ export async function exerciciosRoutes(app: FastifyInstance) {
       })
 
       const { id } = updateExercicioParams.parse(request.params)
-      const { description, repetitions, executions, interval } =
+      const { name, execByRep, description, repetitions, executions, interval } =
         updateExercicioBodySchema.parse(request.body)
 
       const exercicio = await prisma.exercicio.update({
         where: { id },
         data: {
+          execByRep,
+          name,
           description,
           repetitions,
           executions,

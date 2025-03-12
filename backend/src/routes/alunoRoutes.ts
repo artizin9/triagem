@@ -17,6 +17,9 @@ export async function alunoRoutes(app: FastifyInstance) {
       where: {
         role: 'ALUNO',
       },
+      include: {
+        UserTreino: true
+      }
     })
 
     return reply.status(200).send({ alunos })
@@ -88,7 +91,10 @@ export async function alunoRoutes(app: FastifyInstance) {
   
       const aluno = await prisma.user.findUnique({
         where: { id },
-      });
+        include: {
+          UserTreino: true
+        }
+      })
   
       if (!aluno) {
         return reply.status(404).send({ error: 'Aluno não encontrado' });

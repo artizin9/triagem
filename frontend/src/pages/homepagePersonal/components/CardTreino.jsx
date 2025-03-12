@@ -8,7 +8,7 @@ const iconDelete = (<svg width="22" height="22" viewBox="0 0 16 16" fill="none" 
 
 export function CardTreino({treino, Delete, UpdateInfo, SeeTraining, type, SendTraining, WithDraw, SeeExercise}){
 
-    const photo = treino?.photo ? treino?.photo : noPhoto
+    const photo = treino?.photo ? treino?.photo : treino?.file
 
     return (
         <div className={`bg-primary-400 w-[90%] h-[60%] flex flex-col relative items-center rounded-lg p-2 shadow-md shadow-black/40 justify-between ${type === "treino" ? "min-h-[330px]" : "min-h-[280px]"} ${type === "treino" ? 'bg-primary-400' : 'bg-[#1a1919]'}`}>

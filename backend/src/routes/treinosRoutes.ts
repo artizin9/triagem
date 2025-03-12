@@ -12,7 +12,11 @@ export async function treinosRoutes(app: FastifyInstance) {
   app.addHook('onRequest', verifyUserRole('PERSONAL'))
 
   app.get('/treinos', async (request, reply) => {
-    const treinos = await prisma.treino.findMany()
+    const treinos = await prisma.treino.findMany({
+      include: {
+        exercicios: true
+      }
+    })
 
     return reply.send({ treinos })
   })
@@ -26,6 +30,9 @@ export async function treinosRoutes(app: FastifyInstance) {
 
     const treino = await prisma.treino.findUnique({
       where: { id },
+      include: {
+        exercicios: true
+      }
     })
 
     if (!treino) {
@@ -54,7 +61,7 @@ export async function treinosRoutes(app: FastifyInstance) {
       const treino = await prisma.treino.create({
         data: {
           name,
-          imageUrl: uploadImage.filename,
+          imageUrl: uploadImage.filename || 'noPhoto.png',
           conclusionTime,
           levelTraining,
           weekDay,

@@ -1,7 +1,10 @@
+import { api } from "../../../utils/api/api"
+
 export function CardExercise({ exercise, Delete, UpdateExercise, type }) {
 
-    const photo = exercise?.photo
+    const photo = exercise?.photo ? exercise?.photo : api.defaults.baseURL + '/uploads/' + exercise?.imageUrl
 
+    
     return (
         <div className={`bg-[#1b1b1b] w-[90%] h-[50%] flex flex-col relative items-center rounded-lg p-2 shadow-md shadow-black/50 justify-between mx-auto ${type === "read" ? "min-h-[250px]" : "max-h-[170px]"}`}>
             <div className="flex flex-col items-center justify-center w-[60%]">

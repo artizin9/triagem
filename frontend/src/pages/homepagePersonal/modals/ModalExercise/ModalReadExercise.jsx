@@ -1,14 +1,26 @@
 import { useEffect } from 'react'
 import noPhoto from '../../../../assets/imgs/noPhoto.png'
 import { CardExercise } from '../../components/CardExercise'
+import { getExercise } from '../../../../utils/api/api'
 
 const seeExercise = (<svg width="22" height="17" viewBox="0 0 22 17" className='rotate-180' fill="none" xmlns="http://www.w3.org/2000/svg">
     <path fill-rule="evenodd" clip-rule="evenodd" d="M9 2.00353C9 0.375799 10.8407 -0.570208 12.1642 0.377318L20.7285 6.50858C21.8428 7.30637 21.8428 8.96322 20.7285 9.76101L12.1924 15.8721C10.8723 16.8171 9.03572 15.8786 9.02823 14.2551L9.01096 10.5109C9.01093 10.5049 9.00603 10.5 9 10.5H2.25C1.00736 10.5 0 9.49264 0 8.25C0 7.00736 1.00736 6 2.25 6H7C8.10457 6 9 5.10457 9 4V2.00353Z" fill="currentColor" />
 </svg>)
 
-export function ReadExercise({Open, Back, UpdateExercise, DeleteExercise, Treinos, setFormExercise, form, setFormTreino, Close }) {
+export function ReadExercise({Open, Back, UpdateExercise, DeleteExercise, Treinos, setTreinos, setFormExercise, form, setFormTreino, Close }) {
 
-    const { name, destined, time, weekDay, photo } = form
+    const { name, destined, time, weekDay, photo, file } = form
+    const id = form?.id
+
+    useEffect(()=>{
+        async function getexercises(){
+            await getExercise(id, setTreinos)
+        }
+
+        getexercises()
+    },[])
+
+    console.log("OLHOU:", Treinos)
 
     const formTreinoFields = [
         { label: "Nome:", value: name },
@@ -31,7 +43,7 @@ export function ReadExercise({Open, Back, UpdateExercise, DeleteExercise, Treino
                     </div>
 
                     <div className="w-1/3 aspect-square rounded-full relative bg-[#131313] mt-4">
-                        <img src={photo ? photo : noPhoto} className="w-full aspect-square rounded-full object-cover duration-500 " />
+                        <img src={photo ? photo : file} className="w-full aspect-square rounded-full object-cover duration-500 " />
                     </div>
 
                     <div className='w-[60%] h-fit space-y-8 flex flex-col items-center'>

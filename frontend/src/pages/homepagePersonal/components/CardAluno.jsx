@@ -52,7 +52,8 @@ export function CardAluno({aluno, Delete, UpdateInfo, Seetraining, type, SelectA
                 ) : 
                 (<button 
                     onClick={() => SelectAluno(SelectAlunos())}
-                    className={`w-full  whitespace-nowrap py-0.5 font-poppins font-bold shadow-black/30 shadow-md duration-500 ease-in-out cursor-pointer rounded-[3px] text-[14px] ${select ? 'bg-primary-100 text-white' : 'bg-white text-primary-400'} ${Sended ? 'bg-gray-400' : ''}`}>
+                    disabled={Sended ? true : false}
+                    className={`w-full  whitespace-nowrap py-0.5 font-poppins font-bold shadow-black/30 shadow-md duration-500 ease-in-out cursor-pointer rounded-[3px] text-[14px] ${select ? 'bg-primary-100 text-white' : 'bg-white text-primary-400'} ${Sended ? 'bg-gray-600 text-white cursor-not-allowed' : ''}`}>
                         {Sended ? "Treino enviado" : select ? "Aluno selecionado" : "Selecionar aluno"}
                     </button>)
                 }

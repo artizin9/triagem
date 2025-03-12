@@ -1,10 +1,6 @@
 import { useState, useEffect } from "react"
-<<<<<<< HEAD
 import noPhoto from '../../assets/imgs/noPhoto.png'
-import { me, deleteUser, deleteTraining } from '../../utils/api/api'
-=======
-import { me, deleteUser } from '../../utils/api/api'
->>>>>>> 5b0292b41a067fa0559f3f2368fc072f2a930b4f
+import { me, deleteUser, deleteTraining, deleteExercise } from '../../utils/api/api'
 import { Error } from "../../utils/error/errorAuth"
 import { ModalLogOut } from "./modals/LogOut"
 import { CreateAluno } from "./modals/modalAluno/ModalCreateAluno"
@@ -130,7 +126,8 @@ export function Render({imagem}){
         execByRep: '',
         interval: '',
         description: '',
-        photo: null
+        photo: null,
+        file: null
     })
     const CleanExercise = () => setFormExercise({
         id: Date.now(), // id teste, coloque o id verdadeiro dps
@@ -140,7 +137,9 @@ export function Render({imagem}){
         execByRep: '',
         interval: '',
         description: '',
-        photo: null
+        photo: null,
+        file: null
+        
     })
 
     const RenderComponent = () => {
@@ -187,7 +186,8 @@ export function Render({imagem}){
         setDeleteModalTreino(false)
     }
 
-    function DeletarExercise() {
+    async function DeletarExercise() {
+        await deleteExercise(formExercise.id)
         setTreino((treinos) => 
             treinos.map((treino) => {
                 if (treino.id === formTreino.id) {
@@ -377,6 +377,7 @@ export function Render({imagem}){
             Close={() => setReadModalExercise(false)}
             Open={ReadModalExercise}
             Treinos={treino}
+            setTreinos={setTreino}
             form={formTreino}
             setFormExercise={setFormExercise}
             setFormTreino={setFormTreino}

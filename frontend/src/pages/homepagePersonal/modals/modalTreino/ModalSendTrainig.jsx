@@ -1,3 +1,4 @@
+import { sendAlunotoTraining } from "../../../../utils/api/api"
 import { CardAluno } from "../../components/CardAluno"
 import { useEffect, useState } from "react"
 
@@ -5,9 +6,13 @@ export function SendTraining({Open, Close, Next, Alunos, setAlunos, Treino, setT
     const { id } = form
     const [sended, setSended] = useState(false)
 
-   // O backend deve fazer a função de enviar o treino para o aluno caso o aluno tenha sido selecionado e o botão de enviar treino tenha sido clicado, o botão deve ficar cinza e com o nome treino enviando
+    async function SendTraining() {
+        await sendAlunotoTraining(id, formTreino.id)
+        setSended(true)
+    }
 
-    useEffect(() => {console.log("Alunos:", JSON.stringify(Alunos, null, 2))}, [Alunos])
+    console.log("verifica treino: ", id)
+
     return (
         <div onClick={Close} className={`w-full h-full bg-black flex justify-center items-center bg-opacity-30 fixed insert-0 ${Open ? 'visible' : 'invisible'}`}>
             <div
@@ -26,8 +31,9 @@ export function SendTraining({Open, Close, Next, Alunos, setAlunos, Treino, setT
                             aluno={aluno} 
                             type="send"
                             SelectAluno={() => {
+                                console.log("Aluno:", aluno);
                                 setForm(aluno)
-                                setFormTreino(aluno.training)
+                              
                             }}
                             Sended={sended}
                             />
@@ -37,7 +43,7 @@ export function SendTraining({Open, Close, Next, Alunos, setAlunos, Treino, setT
 
                 <div className="w-full flex justify-center items-center pb-4">
                     <button 
-                    onClick={Next}
+                    onClick={SendTraining}
                     className="w-[30%] py-1 bg-primary-100 text-white font-poppins font-bold shadow-black/30 shadow-md duration-500 ease-in-out rounded-lg text-[15px]">
                         Enviar treino
                     </button>

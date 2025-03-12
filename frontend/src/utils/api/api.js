@@ -2,7 +2,7 @@ import axios from 'axios'
 import Cookies from 'js-cookie'
 import { Error, MessageError, ErrorCreateStudent } from '../error/errorAuth'
 
-const api = axios.create({
+export const api = axios.create({
     baseURL: 'http://localhost:3333',
     withCredentials: true,
 })
@@ -61,7 +61,8 @@ export async function getUser(setAluno) {
             phone:  aluno.phone,
             state: aluno.state,
             city: aluno.city,
-            file: api.defaults.baseURL + '/uploads/' + aluno.imageUrl
+            file: api.defaults.baseURL + '/uploads/' + aluno.imageUrl,
+            training: aluno.UserTreino
         }))
         setAluno(Aluno)
         return response.data
@@ -70,7 +71,7 @@ export async function getUser(setAluno) {
     }
 }
 
-<<<<<<< HEAD
+
 export async function updateUser(id, dataForm){
     try {
         const response = await api.put(`/alunos/${id}`, dataForm, {
@@ -91,7 +92,6 @@ export async function deleteUser(id) {
        return Error(error)
     }
 }
-
 
 // CRUD Treino
 
@@ -114,9 +114,10 @@ export async function getTraining(setTreino){
             id: treino.id,
             name: treino.name,
             file: api.defaults.baseURL + '/uploads/' + treino.imageUrl,
-            conclusionTime: treino.conclusionTime,
-            levelTraining: treino.levelTraining,
-            weekDay: treino.weekDay
+            time: treino.conclusionTime,
+            destined: treino.levelTraining,
+            weekDay: treino.weekDay,
+            exercise: treino.exercicios
         }))
         setTreino(treino)
         return response.data
@@ -158,9 +159,26 @@ export async function createExercise(id, formDataExercise){
     }
 }
 
-export async function getExercise(id){
+export async function getExercise(id, setTreino){
     try {
         const response = api.get(`/treinos/${id}/exercicios`)
+        const { exercicios } = response.data
+        const exercicio = exercicios.map((exercicio) => ({
+            id: exercicio.id,
+            name: exercicio.name, 
+            file: api.defaults.baseURL + '/uploads/' + treino.imageUrl,
+            numberExec: exercicio.executions,
+            numberRep: exercicio.repetitions,
+            interval: exercicio.interval,
+            execByRep: exercicio.execByRep,
+            description: exercicio.description,
+            
+        }))
+
+        setTreino(exercicio)
+        return response.data
+    
+
     } catch (error){
         Error(error)
     }
@@ -188,11 +206,9 @@ export async function deleteExercise(id){
 
 // Conectar treino ao aluno
 
-export async function createAlunotoTraining(idAluno, idTreino, data){
+export async function sendAlunotoTraining(idAluno, idTreino){
     try {
-        const response = api.post(`/alunos/${idAluno}/treinos/${idTreino}/associate`, data,{
-            headers: {'Content-Type': 'multipart/form-data'}
-        })
+        const response = api.post(`/alunos/${idAluno}/treinos/${idTreino}/associate`)
         return response.data
     } catch (error) {
         Error(error)

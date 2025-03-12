@@ -32,6 +32,14 @@ export function CreateTreino({ treino, setTreino, Close, Open, formTreino, setfo
 
     const { name, destined, weekDay, time, photo, file } = formTreino
 
+    const formattedDataTraining = {
+          name,
+          conclusionTime: time,
+          levelTraining: destined,
+          weekDay,
+          file, 
+      }
+
     function GetValuesformTreino(e) {
         const { name, value } = e.target
         setformTreino((treino) => ({
@@ -79,8 +87,8 @@ export function CreateTreino({ treino, setTreino, Close, Open, formTreino, setfo
         const formDataTraining = new FormData()
         formDataTraining.append('file', file)
 
-        for (const key in formTreino){
-            key !== 'file' ? formDataTraining.append(key, formTreino[key]) : ''
+        for (const key in formattedDataTraining){
+            key !== 'file' ? formDataTraining.append(key, formattedDataTraining[key]) : ''
         }
 
         setTreino((treinos) => [...treinos, {...formTreino, exercise: [] }])
@@ -93,8 +101,6 @@ export function CreateTreino({ treino, setTreino, Close, Open, formTreino, setfo
 
         await createTraining(formDataTraining)
     }
-
-    // O backend deve colocar a api da cidade e estado, boa sorte nisso
 
     const formTreinoFields = [
         { label: "Nome:", name: "name", type: "text", onChange: GetValuesformTreino, placeholder: "Ex. Treino de Peito ", value: name },

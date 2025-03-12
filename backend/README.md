@@ -7,7 +7,7 @@
 
 **Fluxo da aplicação**
 
-- Toda vez que o comando npm install (ou pnpm install) for rodado, será executado o arquivo que está em `src/seed/index.ts`, que vai ZERAR O BANCO e colocar por padrão um usuário com email admin@admin.com e senha 1234567
+- Toda vez que o comando npm install (ou pnpm install) for rodado, será executado o arquivo que está em `src/seed/index.ts`, que vai colocar por padrão um usuário com email admin@admin.com e senha 12345678
 - Para testar essa api, é necessário instalar o insomnia e importar o arquivo json "arquivo-para-importar..."
 - Todos os uploads estão sendo salvos na pasta `tmp/uploads` e para acessar cada imagem, bastar verificar o campo imageUrl no prisma studio, e acessar o link pelo navegador: `http://localhost:3333/uploads/<imageUrl>`
 - As rotas são bem explicativas e já estão com exemplos prontos, mas estou aberto para maiores explicações

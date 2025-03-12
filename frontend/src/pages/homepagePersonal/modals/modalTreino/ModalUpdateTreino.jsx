@@ -29,6 +29,14 @@ export function UpdateTreino({ treino, setTreino, Close, Open, formTreino, setfo
 
     const { id, name, destined, weekDay, time, photo, file } = formTreino
 
+    const formattedDataTraining = {
+        name,
+        conclusionTime: time,
+        levelTraining: destined,
+        weekDay,
+        file
+    }
+
     function GetValuesformTreino(e) {
         const { name, value } = e.target
         setformTreino((treino) => ({
@@ -76,8 +84,8 @@ export function UpdateTreino({ treino, setTreino, Close, Open, formTreino, setfo
         const formDataTraining = new FormData()
         formDataTraining.append('file', file)
 
-        for (const key in formTreino){
-            key !== 'file' ? formDataTraining.append(key, formTreino[key]) : ''
+        for (const key in formattedDataTraining){
+            key !== 'file' ? formDataTraining.append(key, formattedDataTraining[key]) : ''
         }
 
         setTreino((treinos) => 
@@ -124,7 +132,7 @@ export function UpdateTreino({ treino, setTreino, Close, Open, formTreino, setfo
                 </div>
 
                 <div className="w-1/5 aspect-square rounded-full relative bg-[#252424] mt-4 duration-500 border-opacity-0 ease-in-out transition-all border border-primary-100 hover:border-opacity-100  hover:scale-105">
-                    <img src={photo ? photo : noPhoto} className="w-full aspect-square rounded-full object-cover duration-500 hover:border-white hover:scale-105" />
+                    <img src={photo ? photo : file} className="w-full aspect-square rounded-full object-cover duration-500 hover:border-white hover:scale-105" />
                     <input type="file" accept="image/*" onChange={HandleFileChange} className="opacity-0 absolute top-0 w-full h-full cursor-pointer" />
                 </div>
                 <div className="relative flex justify-center items-center">
