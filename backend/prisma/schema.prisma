@@ -7,35 +7,28 @@ datasource db {
   url      = "file:./dev.db"
 }
 
-enum Role {
-  PERSONAL
-  ALUNO
-}
-
 model User {
-  id       String  @id @default(cuid())
-  imageUrl String?
-  name     String
-  email    String  @unique
-  password String
-  role     Role    @default(ALUNO)
-  city     String?
-  state  String?
-  phone    String?
-
+  id         String       @id @default(cuid())
+  imageUrl   String?
+  name       String
+  email      String       @unique
+  password   String
+  role       String       @default("ALUNO")
+  city       String?
+  state      String?
+  phone      String?
   UserTreino UserTreino[]
 }
 
 model Treino {
-  id             String  @id @default(cuid())
+  id             String       @id @default(cuid())
   imageUrl       String?
   name           String
   conclusionTime String
   levelTraining  String
   weekDay        String
-
-  exercicios Exercicio[]
-  UserTreino UserTreino[]
+  exercicios     Exercicio[]
+  UserTreino     UserTreino[]
 }
 
 model Exercicio {
@@ -47,18 +40,16 @@ model Exercicio {
   interval    String
   name        String
   execByRep   String
-  treino   Treino @relation(fields: [treinoId], references: [id], onDelete: Cascade)
-  treinoId String
+  treinoId    String
+  treino      Treino  @relation(fields: [treinoId], references: [id], onDelete: Cascade)
 }
 
 model UserTreino {
-  id String @id @default(cuid())
-
-  user   User   @relation(fields: [userId], references: [id])
-  userId String
-
-  treino   Treino @relation(fields: [treinoId], references: [id])
+  id       String @id @default(cuid())
+  userId   String
   treinoId String
+  treino   Treino @relation(fields: [treinoId], references: [id])
+  user     User   @relation(fields: [userId], references: [id])
 
   @@unique([userId, treinoId])
 }

@@ -16,7 +16,7 @@ export function CardTreino({treino, Delete, UpdateInfo, SeeTraining, type, SendT
                 <div className="w-full aspect-square rounded-full bg-primary-400 space-y-1">
                 <img src={photo} className="w-full h-full object-cover rounded-full" />
             </div> 
-            <h1 className="font-poppins font-medium text-[14px] text-white mt-1">{treino?.name}</h1>
+            <h1 className="font-poppins font-medium text-[14px] whitespace-nowrap text-white mt-1">{treino?.name}</h1>
             {type === "treino" ? (<h1 className="font-albert font-regular text-[12px] text-primary-200">Para {treino?.destined}</h1>) : (
                 <>
                 <h1 className="font-albert font-regular text-[12px] text-primary-200">Para {treino?.destined}</h1>

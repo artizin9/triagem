@@ -11,8 +11,6 @@ export function SendTraining({Open, Close, Next, Alunos, setAlunos, Treino, setT
         setSended(true)
     }
 
-    console.log("verifica treino: ", id)
-
     return (
         <div onClick={Close} className={`w-full h-full bg-black flex justify-center items-center bg-opacity-30 fixed insert-0 ${Open ? 'visible' : 'invisible'}`}>
             <div

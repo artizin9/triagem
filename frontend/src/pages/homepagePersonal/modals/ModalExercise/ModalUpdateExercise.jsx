@@ -17,7 +17,6 @@ export function UpdateExercise({ Treino, setTreino, Close, Open, formExercise, s
 
     const  id  = formTreino?.id
     const { photo, name, numberExec, numberRep, execByRep, interval, description, file, imageUrl, executions, repetitions  } = formExercise || {}
-    console.log(formExercise)
     const backphoto = api.defaults.baseURL + '/uploads/' + imageUrl
   
 

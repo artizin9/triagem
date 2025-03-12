@@ -1,14 +1,39 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import noPhoto from '../../../../assets/imgs/noPhoto.png'
 import { CardExercise } from '../../components/CardExercise'
+import { getAlunotoExercise, api } from '../../../../utils/api/api'
 
-const seeExercise = (<svg width="22" height="17" viewBox="0 0 22 17" className='rotate-180' fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path fill-rule="evenodd" clip-rule="evenodd" d="M9 2.00353C9 0.375799 10.8407 -0.570208 12.1642 0.377318L20.7285 6.50858C21.8428 7.30637 21.8428 8.96322 20.7285 9.76101L12.1924 15.8721C10.8723 16.8171 9.03572 15.8786 9.02823 14.2551L9.01096 10.5109C9.01093 10.5049 9.00603 10.5 9 10.5H2.25C1.00736 10.5 0 9.49264 0 8.25C0 7.00736 1.00736 6 2.25 6H7C8.10457 6 9 5.10457 9 4V2.00353Z" fill="currentColor" />
-</svg>)
+const seeExercise = (
+    <svg width="22" height="17" viewBox="0 0 22 17" className='rotate-180' fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path fillRule="evenodd" clipRule="evenodd" d="M9 2.00353C9 0.375799 10.8407 -0.570208 12.1642 0.377318L20.7285 6.50858C21.8428 7.30637 21.8428 8.96322 20.7285 9.76101L12.1924 15.8721C10.8723 16.8171 9.03572 15.8786 9.02823 14.2551L9.01096 10.5109C9.01093 10.5049 9.00603 10.5 9 10.5H2.25C1.00736 10.5 0 9.49264 0 8.25C0 7.00736 1.00736 6 2.25 6H7C8.10457 6 9 5.10457 9 4V2.00353Z" fill="currentColor" />
+    </svg>
+)
 
 export function SeeExercise({ Back, Open, Treinos, setFormExercise, form, setFormTreino }) {
+    const { name, destined, time, weekDay, imageUrl } = form
+    const backphoto = api.defaults.baseURL + '/uploads/' + imageUrl
+    const [exercises, setExercises] = useState([])
 
-    const { name, destined, time, weekDay, photo } = form
+    const fetchExercises = async () => {
+        try {
+            const exercisesData = await getAlunotoExercise(form.id)
+            console.log(`Exercícios recebidos para treino ${form.id}:`, exercisesData)
+            setExercises(exercisesData.exercicios || []) 
+        } catch (error) {
+            console.error("Erro ao buscar exercícios do treino:", error)
+            setExercises([]) // Evita problemas caso ocorra erro
+        }
+    }
+    
+    
+
+    useEffect(() => {
+        if (Open && form.id) {
+            console.log(`Chamando fetchExercises() para treino: ${form.id}`)
+            fetchExercises()
+        }
+    }, [Open, form.id])
+    
 
     const formTreinoFields = [
         { label: "Nome:", value: name },
@@ -17,13 +42,13 @@ export function SeeExercise({ Back, Open, Treinos, setFormExercise, form, setFor
         { label: "Dia da semana:", value: weekDay }
     ]
 
-    useEffect(() => {}, [Treinos])
+    console.log("Lista de exercícios no estado:", exercises)
 
     return (
-        <div className={`w-full h-full bg-black flex justify-center items-center bg-opacity-30 fixed insert-0 ${Open ? 'visible' : 'invisible'}`}>
+        <div className={`w-full h-full bg-black flex justify-center items-center bg-opacity-30 fixed inset-0 ${Open ? 'visible' : 'invisible'}`}>
             <div
                 onClick={(e) => e.stopPropagation()}
-                className={`h-[90%] w-3/5 flex   relative rounded-lg shadow-md shadow-black/60 bg-[#131313] pt-1 duration-300 ease-in-out ${Open ? 'scale-100 opacity-100' : 'scale-110 opacity-0'}`}>
+                className={`h-[90%] w-3/5 flex relative rounded-lg shadow-md shadow-black/60 bg-[#131313] pt-1 duration-300 ease-in-out ${Open ? 'scale-100 opacity-100' : 'scale-110 opacity-0'}`}>
                 <div className="h-full w-1/2 flex flex-col items-center p-2 space-y-2 border-white border-r justify-evenly">
                     <div className="flex flex-col text-center mt-2">
                         <h1 className="font-poppins font-extrabold text-[24px] text-white">TREINO <span className="text-primary-100">SELECIONADO </span></h1>
@@ -31,7 +56,7 @@ export function SeeExercise({ Back, Open, Treinos, setFormExercise, form, setFor
                     </div>
 
                     <div className="w-1/3 aspect-square rounded-full relative bg-[#131313] mt-4">
-                        <img src={photo ? photo : noPhoto} className="w-full aspect-square rounded-full object-cover duration-500 " />
+                        <img src={backphoto} className="w-full aspect-square rounded-full object-cover duration-500 " />
                     </div>
 
                     <div className='w-[60%] h-fit space-y-8 flex flex-col items-center'>
@@ -54,13 +79,9 @@ export function SeeExercise({ Back, Open, Treinos, setFormExercise, form, setFor
                     </div>
 
                     <div className='w-full h-full overflow-y-auto grid grid-cols-2 gap-x-0 gap-y-2 pt-5'>
-                        
-                                <CardExercise
-                                    
-                                    type=""
-                                    
-                                />
-                            
+                    {Array.isArray(exercises) && exercises.map((exercise) => (
+    <CardExercise key={exercise.id} exercise={exercise} type="" />
+))}
                     </div>
                 </div>
                 <button
@@ -68,7 +89,6 @@ export function SeeExercise({ Back, Open, Treinos, setFormExercise, form, setFor
                     {seeExercise}
                 </button>
             </div>
-
         </div>
     )
 }

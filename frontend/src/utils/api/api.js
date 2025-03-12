@@ -215,13 +215,31 @@ export async function sendAlunotoTraining(idAluno, idTreino){
     }
 }
 
-export async function getAlunotoTraining(idAluno){
-    try{
-        const response = api.get(`/alunos/${idAluno}/exercicios`)
-    } catch (error){
+export async function getAlunotoExercise(idTreino) {
+    try {
+        console.log(`Buscando exercícios para treinoId: ${idTreino}`)
+
+        const response = await api.get(`/treinos/${idTreino}/exercicios`) // Adicionando await
+        console.log(`Resposta da API para ${idTreino}:`, response.data)
+
+        return response.data
+    } catch (error) {
+        console.error(`Erro ao buscar exercícios para ${idTreino}:`, error)
+        return [] // Retorna array vazio para evitar erro
+    }
+}
+
+
+export async function getAlunotoTraining(idAluno) {
+    try {
+        const response = await api.get(`/alunos/${idAluno}/treinos`) 
+        return response.data
+    } catch (error) {
         Error(error)
     }
 }
+
+
 export async function deleteAlunotoTraining(idAluno, idTreino){
     try {
         const response = api.delete(`/alunos/${idAluno}/treinos/${idTreino}/disassociate`)

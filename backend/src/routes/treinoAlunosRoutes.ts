@@ -32,6 +32,25 @@ export async function treinoAlunosRoutes(app: FastifyInstance) {
     return reply.send({ exerciciosAluno })
   })
 
+  app.get('/alunos/:idAluno/treinos', async (request, reply) => {
+    const idAlunoParams = z.object({
+      idAluno: z.string().cuid(),
+    })
+
+    const { idAluno } = idAlunoParams.parse(request.params)
+
+    const TrainingAluno = await prisma.userTreino.findMany({
+      where: {
+        userId: idAluno,
+      },
+      include: {
+        treino: true,
+      },
+    })
+
+    return reply.send({ TrainingAluno })
+})
+
   app.post(
     '/alunos/:idAluno/treinos/:idTreino/associate',
     async (request, reply) => {

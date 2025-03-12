@@ -20,8 +20,6 @@ export function ReadExercise({Open, Back, UpdateExercise, DeleteExercise, Treino
         getexercises()
     },[])
 
-    console.log("OLHOU:", Treinos)
-
     const formTreinoFields = [
         { label: "Nome:", value: name },
         { label: "Destinado para:", value: destined },
